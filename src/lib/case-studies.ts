@@ -245,41 +245,131 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "sendoso",
     title: "Growing Sendoso",
-    subtitle: "Teams & Users — enterprise-ready identity inside a gifting platform",
+    subtitle:
+      "Touch builder, marketplace, and shared send visibility — research to shipped UI",
     company: "Sendoso",
-    role: "Senior Product Designer",
+    role: "Senior Product Designer · Research · IA · Design QA",
     year: "2019 – 2022",
-    tags: ["B2B SaaS", "IA", "Enterprise", "Design System"],
+    tags: ["B2B SaaS", "Product Design", "Research", "IA"],
     cover: "/case-studies/sendoso/hero.jpg",
     summary:
-      "A look at how a small multi-disciplinary team iteratively built solutions that helped Sendoso achieve user goals — focusing on Teams & Users so ops managers could assign roles quickly and keep license utilization healthy.",
+      "Sendoso is a B2B corporate gifting platform. I led product design from research through shipped UI across the send flow, marketplace, tracking, and admin — so marketers and senders finally shared the same story of what to send, who sent it, and what happened next.",
     challenge:
-      "There was no single place to view all users on the platform regardless of team. CX had to pull lists manually via Active Admin. Many customers were over their seat limit with no in-product nudge to upgrade. Teams & Users needed a clearer home in the IA so findability matched its importance.",
+      "Marketers and sales were flying blind. Touches were hard to find, harder to measure, and trust between the two sides was thin — no precise library search, no reliable alerts for new Touches, and managers couldn’t see what converted.",
     outcome: [
-      "Moved Teams & Users into main navigation for discoverability",
-      "Simplified IA so ops could manage teams and roles without friction",
-      "Designed for license utilization, invite conversion, and enterprise scale",
-      "Took wireframes to hi-fi through the Sendoso design system",
+      "≈30% increase in monthly active users",
+      "One guided Touch flow instead of a fragmented creation process",
+      "Shared visibility into every send via tracker and notifications",
+      "Clearer marketplace paths so senders didn’t start from zero",
+      "Teams & Users moved into main nav with enterprise-ready role and license flows",
     ],
     figmaNodeId: "143:861",
     sections: [
       {
-        title: "Design principles at Sendoso",
+        title: "Overview",
         body: [
-          "I believe in a goal-driven and objective design process, where decisions can be justified using research and KPIs rather than opinion alone. At Sendoso that meant progressive disclosure, clear CTAs, obvious hierarchy, and doing tedious work for the user — only asking for what we need.",
+          "Two people have to make the platform work: marketers who set budget, build Touches, manage teams, and prove ROI — and senders who use those Touches with their own prospects.",
+          "I led design from research stickies and journey maps through shipped screens, partnering with Sendoso product and design leadership. The north star: one platform both sides can trust — control for managers without babysitting every send, confidence for senders without waiting on a creator for every gift.",
         ],
-        bullets: [
-          "Use plain, understandable language; images reflect real people",
-          "Adapt to different ways people need to interact with us",
-          "Offer guidance through as few words as possible",
-          "Provide data and insights that guide decisions in the context of a task",
+        figures: [
+          {
+            src: "/case-studies/sendoso/hero.jpg",
+            alt: "Growing Sendoso — product design case study cover",
+          },
         ],
       },
       {
-        title: "Discovery to definition",
+        title: "Challenge — The problem with Touches",
         body: [
-          "After kick-off and reading the PRD, I deep-dived into live designs and ran sessions with the PM. We explored comparative analysis, HMW framing, and near-term commitments before wiring solutions.",
-          "We needed a place where managers could manage teams and assign roles based on responsibilities — quick and simple so ops could focus on the work that matters.",
+          "Touches were underused, too numerous to manage, and tough to track once sent. Search in the library wasn’t precise. There was no reliable alert when a new Touch became available. Managers couldn’t see what converted — and didn’t fully trust sales to pick the right gift after past misuse damaged the brand.",
+          "Senders felt overwhelmed and needed heavy guidance. Reusing a Touch often meant cloning it just to swap funding source or gift item. Marketing and sales friction made the whole loop slower than the business needed.",
+        ],
+      },
+      {
+        title: "How I worked",
+        body: [
+          "Discovery through retro — research first, then screens. I believe in a goal-driven process where decisions can be justified with research and KPIs: progressive disclosure, clear CTAs, obvious hierarchy, and doing tedious work for the user.",
+        ],
+        bullets: [
+          "Discovery — stakeholder and customer interviews across manager and sender roles",
+          "Synthesis — persona (Marketer as primary manager) and pain-point list",
+          "HMW framing — turn friction into design opportunities",
+          "Journey mapping — Explore → Enable (manual/triggered) → Tracking → Manage",
+          "Design — Touch builder, marketplace, tracker, notifications, Teams & Users",
+          "Retro — what worked, what didn’t, actions next",
+        ],
+      },
+      {
+        title: "How might we",
+        body: ["The questions that shaped the product."],
+        bullets: [
+          "Guide assignment of Touches to teams and individuals for better ROI",
+          "Surface sending performance so creators can see what’s working",
+          "Give senders catalog access without waiting on a creator every time",
+          "Support manual and triggered sending in one place",
+        ],
+      },
+      {
+        title: "Research — Two users, one messy middle",
+        body: [
+          "As a Marketer, you set accounts, roles, budget, and Touches — then measure whether any of it worked. As a sender, you need the right gift for a real prospect without inventing strategy from scratch.",
+          "Interview notes made the tension plain: “How do I know which Touch is more successful?” “Should this be automated, or have sales involved?” “Physical is nice — but do we even have the address?”",
+        ],
+        figures: [
+          {
+            src: "/case-studies/sendoso/marketplace.jpg",
+            alt: "Sendoso marketplace — research context for sender discovery",
+            caption: "Marketplace as the place senders start from something, not nothing",
+          },
+        ],
+      },
+      {
+        title: "Craft — The Touch builder",
+        body: [
+          "I collapsed creation into one guided path: pick recipients (individual or group), assign the gift, set billing and source of funds, link Salesforce, set sending limits and expiry, and write the message — required vs optional called out clearly.",
+          "Managers could standardize process. Sellers who knew their prospect still had room to act. Manual and triggered sending lived in the same system so campaigns didn’t have to be built twice.",
+        ],
+        figures: [
+          {
+            src: "/case-studies/sendoso/touch-builder.jpg",
+            alt: "Sendoso guided Touch builder flow",
+            caption: "One guided Touch builder replacing fragmented creation",
+          },
+        ],
+      },
+      {
+        title: "Marketplace — Start from something, not nothing",
+        body: [
+          "The marketplace home put budget, curated collections, trending picks, campaign templates, and “gifts by goal” in front of senders. Catalog views separated eGifts, physical gifts, and other types with filters by status and price.",
+          "Popular choices and personalization hints reduced the freeze that used to kill first sends.",
+        ],
+        figures: [
+          {
+            src: "/case-studies/sendoso/marketplace.jpg",
+            alt: "Sendoso gift marketplace home",
+            caption: "Budget, curated picks, and templates in one destination",
+          },
+        ],
+      },
+      {
+        title: "Visibility — Tracker and notifications",
+        body: [
+          "A single send tracker listed recipient, item, amount, status, and date — the shared source of truth research said was missing.",
+          "The notification center alerted people when Touches became available and when gifts were redeemed, answering the “no way to alert” pain point directly.",
+        ],
+        figures: [
+          {
+            src: "/case-studies/sendoso/send-tracker.jpg",
+            alt: "Sendoso send tracker listing every Touch",
+            caption: "Shared visibility for managers and senders",
+          },
+        ],
+      },
+      {
+        title: "Admin — Teams, branding & Users",
+        body: [
+          "Customization flows covered gift-email branding and team assignment so managers could set defaults once. Roles and permissions stayed part of the same engagement story — standardize the brand and the budget path, then let senders move.",
+          "For Teams & Users specifically: there was no single place to view all users regardless of team; CX pulled lists via Active Admin; many customers were over seat limit with no in-product upgrade nudge. I moved Teams & Users into main navigation, simplified IA for ops, and took wires to hi-fi in the Sendoso design system — targeting invite conversion, license utilization, and enterprise scale.",
         ],
         figures: [
           {
@@ -292,18 +382,47 @@ export const caseStudies: CaseStudy[] = [
             alt: "Sendoso role assignment wireframes",
             caption: "Exploring role assignment and invite flows",
           },
-        ],
-      },
-      {
-        title: "Hi-fidelity in the design system",
-        body: [
-          "Once wires were solid we moved to hi-fidelity using the Sendoso design system. Success metrics focused on invite conversion, license utilization, brand awareness of the feature, and enterprise-grade scalability for large teams.",
-        ],
-        figures: [
+          {
+            src: "/case-studies/sendoso/teams-customization.jpg",
+            alt: "Sendoso teams and branding customization",
+            caption: "Team assignment and gift-email branding controls",
+          },
           {
             src: "/case-studies/sendoso/teams.png",
             alt: "Sendoso Teams & Users hi-fi interface",
             caption: "Teams & Users — findable, scannable, enterprise-ready",
+          },
+        ],
+      },
+      {
+        title: "Ship & outcome",
+        body: [
+          "Screens moved through design review with product and design leadership. Monthly active users rose about 30% as the platform became clearer to run and easier to start using — engagement moved because both sides finally shared the same story.",
+          "A closing retro captured what went well, what didn’t, and what to improve next — the same loop I used to open the work.",
+        ],
+        bullets: [
+          "Trust is a design problem — visibility beats micromanagement",
+          "One flow beats five workarounds (no more cloning Touches to change funding)",
+          "Alerting is part of the product — a Touch nobody knows about might as well not exist",
+          "Design for both modes — marketer-led campaigns and seller judgment",
+        ],
+        figures: [
+          {
+            src: "/case-studies/sendoso/invite-email.jpg",
+            alt: "Sendoso branded gift invite email",
+            caption: "Branded invite — control without micromanaging every send",
+          },
+          {
+            src: "/case-studies/sendoso/gallery-1.jpg",
+            alt: "Sendoso product UI gallery",
+          },
+          {
+            src: "/case-studies/sendoso/gallery-5.jpg",
+            alt: "Sendoso product UI gallery",
+          },
+          {
+            src: "/case-studies/sendoso/gallery-7.jpg",
+            alt: "Sendoso product UI gallery",
           },
         ],
       },
