@@ -4,6 +4,7 @@ import {
   CaseStudyView,
   SiteChrome,
 } from "@/components/case-study"
+import { CaseStudyGate } from "@/components/case-study-gate"
 import {
   getCaseStudy,
   getCaseStudySlugs,
@@ -41,7 +42,9 @@ export default async function CaseStudyPage({ params }: Props) {
   return (
     <SiteChrome active="work">
       <main className="flex-1">
-        <CaseStudyView study={study} />
+        <CaseStudyGate slug={study.slug} title={study.title}>
+          <CaseStudyView study={study} />
+        </CaseStudyGate>
       </main>
     </SiteChrome>
   )

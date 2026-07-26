@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState, useTransition } from "react"
-import { Calendar, Coffee, CupSoda, Video } from "lucide-react"
+import { Calendar, Coffee, Leaf, Video } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -155,7 +155,7 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
             <div className="grid grid-cols-3 gap-2">
               {(
                 [
-                  ["tea", "Tea", CupSoda],
+                  ["tea", "Tea", Leaf],
                   ["coffee", "Coffee", Coffee],
                   ["zoom", "Zoom", Video],
                 ] as const

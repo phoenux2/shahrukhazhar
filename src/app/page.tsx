@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { ExpandableText, SeeMore } from "@/components/see-more"
+import { HeroPortraitTrigger } from "@/components/hero-portrait"
 import { WorkGrid } from "@/components/case-study"
 import {
   achievements,
@@ -206,9 +207,9 @@ function Hero() {
       <div className="mx-auto flex min-h-[calc(100svh-7rem)] max-w-5xl flex-col justify-center px-4 py-12 sm:min-h-[calc(100svh-3.5rem)] sm:px-6 sm:py-16 md:px-8 md:py-24">
         <div className="animate-rise max-w-3xl">
           <MicroLabel>Product design · Systems · Strategy</MicroLabel>
-          <h1 className="mt-4 text-[2.125rem] leading-[1.1] font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
-            {profile.name}
-          </h1>
+          <div className="mt-4">
+            <HeroPortraitTrigger name={profile.name} />
+          </div>
         </div>
 
         <p className="animate-rise-delay-1 mt-5 max-w-2xl text-lg leading-snug font-medium tracking-tight text-foreground/90 text-balance sm:mt-6 sm:text-xl sm:text-foreground/85">
@@ -575,7 +576,33 @@ function SiteFooter() {
   )
 }
 
-export default function Home() {
+function OffClockSection() {
+  return (
+    <section
+      id="off-clock"
+      className="scroll-mt-28 border-b border-foreground/18 sm:scroll-mt-16"
+    >
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-24">
+        <SectionHeader
+          label="Off the clock"
+          title="Who I am when the decks close"
+          description="Not a résumé. A few honest edges."
+        />
+        <div className="max-w-2xl space-y-5">
+          {profile.offClock.map((paragraph) => (
+            <p
+              key={paragraph.slice(0, 32)}
+              className="text-base leading-relaxed text-foreground/85 text-pretty sm:text-lg sm:leading-relaxed"
+            >
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
   return (
     <div className="flex min-h-full flex-1 flex-col bg-canvas">
       <SiteHeader />
@@ -584,6 +611,7 @@ export default function Home() {
         <WorkSection />
         <ExperienceSection />
         <PracticeSection />
+        <OffClockSection />
         <EducationSection />
         <ContactSection />
       </main>
