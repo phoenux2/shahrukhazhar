@@ -19,6 +19,13 @@ export const metadata: Metadata = {
   title: "Shahrukh Azhar — Product Design Lead",
   description:
     "Fractional Head of Design. Founder of Phoenux.Design and Ferd.AI. Formerly Lead Product Designer at Unlayer (YC W22). 12+ years across SaaS, enterprise, and AI products.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "32x32" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
   openGraph: {
     title: "Shahrukh Azhar — Product Design Lead",
     description:
