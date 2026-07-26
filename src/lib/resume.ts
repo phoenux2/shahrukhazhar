@@ -17,10 +17,22 @@ export const profile = {
     "Product design leader with 12+ years shipping B2B SaaS, enterprise platforms, developer tools, ecommerce, and AI products. Builds and scales design teams that sit at the backbone of product orgs — helping founders, product managers, and engineers ship clearer, faster. Operates from a simple order of priority: people, design, money.",
   highlight:
     "Founder of Phoenux.Design and Ferd.AI. Previously Lead Product Designer at Unlayer (YC W22) and Senior Product Designer at Sendoso.",
-  /** Outside the work — concise, a little mythic */
-  offClock: [
-    "Father first. Table tennis with a scoreboard that never quite resets. Snooker when the room goes quiet; padel, a new hunger. Cars — properly. Renewable energy — the rabbit hole I don’t apologize for. I can talk to anyone about anything, and mean it.",
-    "At Phoenux we run a little like Dunder Mifflin with sharper taste — and yes, I have my Michael Scott days. Type 1 diabetes didn’t shrink the map. It raised the stakes. Without it, maybe an ordinary path. With it — this one.",
+}
+
+/** Outside the CV — human context, not a pitch. */
+export const outsideWork = {
+  intro:
+    "A little of who I am when the Figma file is closed.",
+  lines: [
+    "I'm a father.",
+    "A self-glorified table tennis player — and I will take that title.",
+    "I sometimes play snooker.",
+    "I recently started playing padel.",
+    "I'm really, really, really into cars.",
+    "I'm a geek about renewable energy.",
+    "I'm good at talking to anyone about anything.",
+    "I sometimes act like Michael Scott of Phoenux — we do treat Phoenux a bit like Dunder Mifflin.",
+    "I'm a type 1 diabetic. That has pushed my limits more than almost anything else. I am who I am — without it, I might have been just a normal kid doing normal things.",
   ],
 }
 

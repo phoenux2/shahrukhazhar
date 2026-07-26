@@ -8,8 +8,8 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { ExpandableText, SeeMore } from "@/components/see-more"
-import { HeroPortraitTrigger } from "@/components/hero-portrait"
 import { WorkGrid } from "@/components/case-study"
+import { HeroName } from "@/components/hero-name"
 import {
   achievements,
   clientCredits,
@@ -17,6 +17,7 @@ import {
   education,
   experience,
   focusAreas,
+  outsideWork,
   profile,
   tools,
   type ExperienceItem,
@@ -145,6 +146,7 @@ function SiteHeader() {
             ["Work", "#work"],
             ["Experience", "#experience"],
             ["Practice", "#practice"],
+            ["Outside", "#outside"],
             ["Contact", "#contact"],
           ].map(([label, href]) => (
             <a
@@ -186,6 +188,7 @@ function SiteHeader() {
           ["Work", "#work"],
           ["Experience", "#experience"],
           ["Practice", "#practice"],
+          ["Outside", "#outside"],
           ["Contact", "#contact"],
         ].map(([label, href]) => (
           <a
@@ -207,9 +210,7 @@ function Hero() {
       <div className="mx-auto flex min-h-[calc(100svh-7rem)] max-w-5xl flex-col justify-center px-4 py-12 sm:min-h-[calc(100svh-3.5rem)] sm:px-6 sm:py-16 md:px-8 md:py-24">
         <div className="animate-rise max-w-3xl">
           <MicroLabel>Product design · Systems · Strategy</MicroLabel>
-          <div className="mt-4">
-            <HeroPortraitTrigger name={profile.name} />
-          </div>
+          <HeroName />
         </div>
 
         <p className="animate-rise-delay-1 mt-5 max-w-2xl text-lg leading-snug font-medium tracking-tight text-foreground/90 text-balance sm:mt-6 sm:text-xl sm:text-foreground/85">
@@ -462,6 +463,33 @@ function PracticeSection() {
   )
 }
 
+function OutsideWorkSection() {
+  return (
+    <section
+      id="outside"
+      className="scroll-mt-28 border-b border-foreground/18 sm:scroll-mt-16"
+    >
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-24">
+        <SectionHeader
+          label="Outside work"
+          title="Who I am beyond the CV"
+          description={outsideWork.intro}
+        />
+        <ul className="max-w-2xl space-y-0 border-t border-foreground/12">
+          {outsideWork.lines.map((line) => (
+            <li
+              key={line.slice(0, 48)}
+              className="border-b border-foreground/12 py-4 text-base leading-relaxed text-foreground/85 sm:text-sm"
+            >
+              {line}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
 function EducationSection() {
   return (
     <section className="border-b border-foreground/18">
@@ -576,33 +604,7 @@ function SiteFooter() {
   )
 }
 
-function OffClockSection() {
-  return (
-    <section
-      id="off-clock"
-      className="scroll-mt-28 border-b border-foreground/18 sm:scroll-mt-16"
-    >
-      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-24">
-        <SectionHeader
-          label="Off the clock"
-          title="Who I am when the decks close"
-          description="Not a résumé. A few honest edges."
-        />
-        <div className="max-w-2xl space-y-5">
-          {profile.offClock.map((paragraph) => (
-            <p
-              key={paragraph.slice(0, 32)}
-              className="text-base leading-relaxed text-foreground/85 text-pretty sm:text-lg sm:leading-relaxed"
-            >
-              {paragraph}
-            </p>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
+export default function Home() {
   return (
     <div className="flex min-h-full flex-1 flex-col bg-canvas">
       <SiteHeader />
@@ -611,7 +613,7 @@ function OffClockSection() {
         <WorkSection />
         <ExperienceSection />
         <PracticeSection />
-        <OffClockSection />
+        <OutsideWorkSection />
         <EducationSection />
         <ContactSection />
       </main>
