@@ -11,7 +11,7 @@ import { ExpandableText, SeeMore } from "@/components/see-more"
 import { WorkGrid } from "@/components/case-study"
 import {
   achievements,
-  clients,
+  clientCredits,
   competencies,
   education,
   experience,
@@ -45,7 +45,7 @@ function SectionHeader({
         <h2 className="section-header__title mt-2">{title}</h2>
       </div>
       {description ? (
-        <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
+        <p className="max-w-md text-base leading-relaxed text-muted-foreground sm:text-sm">
           {description}
         </p>
       ) : null}
@@ -55,15 +55,15 @@ function SectionHeader({
 
 function BulletList({ items }: { items: string[] }) {
   return (
-    <ul className="mt-4 max-w-2xl space-y-2">
+    <ul className="mt-4 max-w-2xl space-y-3 sm:space-y-2">
       {items.map((bullet) => (
         <li
           key={bullet}
-          className="flex gap-3 text-sm leading-relaxed text-foreground/80"
+          className="flex gap-3 text-base leading-relaxed text-foreground/85 sm:text-sm sm:text-foreground/80"
         >
           <span
             aria-hidden
-            className="mt-[0.55em] size-1 shrink-0 bg-foreground"
+            className="mt-[0.55em] size-1.5 shrink-0 bg-foreground sm:size-1"
           />
           {bullet}
         </li>
@@ -99,11 +99,13 @@ function ExperienceRole({ item }: { item: ExperienceItem }) {
           </h3>
           {item.badge ? <Badge variant="secondary">{item.badge}</Badge> : null}
         </div>
-        <p className="mt-1 text-sm font-medium text-foreground/70">{item.role}</p>
+        <p className="mt-1 text-base font-medium text-foreground/75 sm:text-sm sm:text-foreground/70">
+          {item.role}
+        </p>
         <div className="mt-3 max-w-2xl">
           <ExpandableText
             text={item.summary}
-            className="text-sm leading-relaxed text-muted-foreground"
+            className="text-base leading-relaxed text-muted-foreground sm:text-sm"
           />
         </div>
         {bullets.length > 0 ? (
@@ -113,20 +115,7 @@ function ExperienceRole({ item }: { item: ExperienceItem }) {
               lessLabel="Show less"
               preview={<BulletList items={visibleBullets} />}
             >
-              <ul className="mt-2 max-w-2xl space-y-2">
-                {hiddenBullets.map((bullet) => (
-                  <li
-                    key={bullet}
-                    className="flex gap-3 text-sm leading-relaxed text-foreground/80"
-                  >
-                    <span
-                      aria-hidden
-                      className="mt-[0.55em] size-1 shrink-0 bg-foreground"
-                    />
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
+              <BulletList items={hiddenBullets} />
             </SeeMore>
           ) : (
             <BulletList items={bullets} />
@@ -139,13 +128,16 @@ function ExperienceRole({ item }: { item: ExperienceItem }) {
 
 function SiteHeader() {
   return (
-    <header className="sticky top-0 z-20 border-b border-foreground/18 bg-canvas/90 backdrop-blur-sm">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-6 md:px-8">
+    <header className="sticky top-0 z-20 border-b border-foreground/18 bg-canvas/90 pt-[env(safe-area-inset-top)] backdrop-blur-sm">
+      <div className="mx-auto flex min-h-14 max-w-5xl items-center justify-between gap-2 px-4 py-2 sm:gap-3 sm:px-6 md:px-8">
         <a
           href="#top"
-          className="text-sm font-semibold tracking-tight text-foreground transition-colors hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          lang="ur"
+          dir="rtl"
+          className="shrink-0 text-lg leading-none font-semibold tracking-tight text-foreground transition-colors hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:text-base"
+          style={{ fontFamily: "var(--font-urdu), 'Noto Nastaliq Urdu', serif" }}
         >
-          {profile.monogram}
+          {profile.nameUrdu}
         </a>
         <nav
           aria-label="Primary"
@@ -166,7 +158,7 @@ function SiteHeader() {
             </a>
           ))}
         </nav>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <Button
             render={
               <a
@@ -187,6 +179,26 @@ function SiteHeader() {
           </Button>
         </div>
       </div>
+      {/* Mobile section jump — readable chips, easy thumb reach */}
+      <nav
+        aria-label="Sections"
+        className="flex gap-2 overflow-x-auto border-t border-foreground/12 px-4 py-2 sm:hidden [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {[
+          ["Work", "#work"],
+          ["Experience", "#experience"],
+          ["Practice", "#practice"],
+          ["Contact", "#contact"],
+        ].map(([label, href]) => (
+          <a
+            key={href}
+            href={href}
+            className="inline-flex shrink-0 items-center justify-center border border-foreground/18 bg-canvas px-3 py-2 text-xs font-medium tracking-wide text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
     </header>
   )
 }
@@ -194,31 +206,23 @@ function SiteHeader() {
 function Hero() {
   return (
     <section id="top" className="border-b border-foreground/18">
-      <div className="mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-5xl flex-col justify-center px-6 py-16 md:px-8 md:py-24">
+      <div className="mx-auto flex min-h-[calc(100svh-7rem)] max-w-5xl flex-col justify-center px-4 py-12 sm:min-h-[calc(100svh-3.5rem)] sm:px-6 sm:py-16 md:px-8 md:py-24">
         <div className="animate-rise max-w-3xl">
           <MicroLabel>Product design · Systems · Strategy</MicroLabel>
-          <h1 className="mt-4 text-4xl leading-[1.05] font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
+          <h1 className="mt-4 text-[2.125rem] leading-[1.1] font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
             {profile.name}
           </h1>
-          <p
-            lang="ur"
-            dir="rtl"
-            className="mt-3 text-xl leading-relaxed text-muted-foreground sm:text-2xl"
-            style={{ fontFamily: "var(--font-urdu), 'Noto Nastaliq Urdu', serif" }}
-          >
-            {profile.nameUrdu}
-          </p>
         </div>
 
-        <p className="animate-rise-delay-1 mt-6 max-w-2xl text-lg leading-snug font-medium tracking-tight text-foreground/85 text-balance sm:text-xl">
+        <p className="animate-rise-delay-1 mt-5 max-w-2xl text-lg leading-snug font-medium tracking-tight text-foreground/90 text-balance sm:mt-6 sm:text-xl sm:text-foreground/85">
           {profile.title}
         </p>
 
-        <p className="animate-rise-delay-2 mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+        <p className="animate-rise-delay-2 mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:mt-6 sm:text-base">
           {profile.summary}
         </p>
 
-        <div className="animate-rise-delay-3 mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+        <div className="animate-rise-delay-3 mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center">
           <Button render={<a href={`mailto:${profile.email}`} />} size="lg">
             Start a conversation
             <ArrowUpRight className="size-4" />
@@ -272,8 +276,8 @@ function Hero() {
 
 function WorkSection() {
   return (
-    <section id="work" className="scroll-mt-16 border-b border-foreground/18">
-      <div className="mx-auto max-w-5xl px-6 py-16 md:px-8 md:py-24">
+    <section id="work" className="scroll-mt-28 sm:scroll-mt-16 border-b border-foreground/18">
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-24">
         <SectionHeader
           label="Selected work"
           title="Case studies"
@@ -290,8 +294,8 @@ function ExperienceSection() {
   const earlier = experience.slice(FEATURED_EXPERIENCE_COUNT)
 
   return (
-    <section id="experience" className="scroll-mt-16 border-b border-foreground/18">
-      <div className="mx-auto max-w-5xl px-6 py-16 md:px-8 md:py-24">
+    <section id="experience" className="scroll-mt-28 sm:scroll-mt-16 border-b border-foreground/18">
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-24">
         <SectionHeader
           label="Career"
           title="Experience"
@@ -338,9 +342,9 @@ function PracticeSection() {
   return (
     <section
       id="practice"
-      className="scroll-mt-16 border-b border-foreground/18"
+      className="scroll-mt-28 sm:scroll-mt-16 border-b border-foreground/18"
     >
-      <div className="mx-auto max-w-5xl px-6 py-16 md:px-8 md:py-24">
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-24">
         <SectionHeader
           label="Practice"
           title="How I work"
@@ -394,19 +398,39 @@ function PracticeSection() {
           <AccordionItem value="collaborations">
             <AccordionTrigger>Collaborations</AccordionTrigger>
             <AccordionContent>
-              <div className="grid gap-8 pt-1 md:grid-cols-2">
-                <div>
-                  <MicroLabel>US</MicroLabel>
-                  <p className="mt-3 text-base leading-snug font-medium tracking-tight text-foreground text-balance">
-                    {clients.us.join(" · ")}
-                  </p>
-                </div>
-                <div>
-                  <MicroLabel>MENA</MicroLabel>
-                  <p className="mt-3 text-base leading-snug font-medium tracking-tight text-foreground text-balance">
-                    {clients.mena.join(" · ")}
-                  </p>
-                </div>
+              <p className="pt-1 text-base leading-relaxed text-muted-foreground sm:text-sm">
+                A few names from the ledger — one line each. The cobbler’s
+                children problem applies here too: years of client work, very
+                little room to over-explain.
+              </p>
+              <div className="mt-6 grid gap-8 md:grid-cols-2">
+                {(
+                  [
+                    ["US", "us"],
+                    ["MENA", "mena"],
+                  ] as const
+                ).map(([label, region]) => (
+                  <div key={region}>
+                    <MicroLabel>{label}</MicroLabel>
+                    <ul className="mt-3 space-y-0 border-t border-foreground/12">
+                      {clientCredits
+                        .filter((c) => c.region === region)
+                        .map((client) => (
+                          <li
+                            key={client.name}
+                            className="border-b border-foreground/12 py-3"
+                          >
+                            <p className="text-base font-semibold tracking-tight text-foreground sm:text-sm">
+                              {client.name}
+                            </p>
+                            <p className="mt-1 text-base leading-relaxed text-muted-foreground sm:text-sm">
+                              {client.line}
+                            </p>
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             </AccordionContent>
           </AccordionItem>
@@ -460,7 +484,7 @@ function EducationSection() {
 
 function ContactSection() {
   return (
-    <section id="contact" className="scroll-mt-16">
+    <section id="contact" className="scroll-mt-28 sm:scroll-mt-16">
       <div className="mx-auto max-w-5xl px-6 py-20 md:px-8 md:py-28">
         <div className="section-header max-w-xl">
           <MicroLabel>Contact</MicroLabel>
@@ -468,7 +492,7 @@ function ContactSection() {
             Let&apos;s design the next chapter.
           </h2>
         </div>
-        <p className="mt-5 max-w-lg text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-sm">
           Open to fractional head of design roles, product design leadership,
           and select consultancy engagements through Phoenux.
         </p>

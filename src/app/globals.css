@@ -102,11 +102,44 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground antialiased;
-  }
   html {
     @apply font-mono scroll-smooth;
+    /* Readable mobile base — 16px minimum avoids iOS zoom on inputs */
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Windows 98 cursors — fine pointers only (desktop / trackpad) */
+  @media (pointer: fine) {
+    html,
+    body,
+    * {
+      cursor: url("/cursors/win98-arrow.png") 0 0, auto;
+    }
+
+    a,
+    button,
+    summary,
+    label[for],
+    [role="button"],
+    [data-slot="button"],
+    [data-slot="accordion-trigger"],
+    [data-slot="dialog-trigger"],
+    [data-slot="dialog-close"],
+    .cursor-pointer {
+      cursor: url("/cursors/win98-hand.png") 12 2, pointer !important;
+    }
+
+    input,
+    textarea,
+    [contenteditable="true"] {
+      cursor: text !important;
+    }
   }
 }
 
@@ -123,7 +156,12 @@
   }
 
   .micro-label {
-    @apply text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground;
+    @apply text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground sm:text-[11px] sm:tracking-[0.14em];
+  }
+
+  /* Mobile-first interactive targets */
+  .touch-target {
+    @apply min-h-11 min-w-11;
   }
 
   .surface-quiet {

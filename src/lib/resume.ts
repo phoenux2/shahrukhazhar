@@ -1,7 +1,6 @@
 export const profile = {
   name: "Shahrukh Azhar",
   nameUrdu: "شاہ رخ اظہر",
-  monogram: "SA",
   title:
     "Fractional Head of Design · Product, Systems & UX Strategy",
   location: "Dubai, UAE · Lahore, Pakistan",
@@ -65,28 +64,104 @@ export const tools = [
   "Maze",
 ]
 
+export type ClientCredit = {
+  name: string
+  region: "us" | "mena"
+  line: string
+}
+
+/** Client roster with one-liners grounded in resume experience — no invented outcomes. */
+export const clientCredits: ClientCredit[] = [
+  {
+    name: "Sendoso",
+    region: "us",
+    line: "Senior Product Designer through hypergrowth — gifting, Cameo, and Salesforce-bound product UX.",
+  },
+  {
+    name: "Whirlpool",
+    region: "us",
+    line: "Bluetooth-connected product experiences while the only designer among 40+ engineers.",
+  },
+  {
+    name: "Dealpath",
+    region: "us",
+    line: "Phoenux studio engagement across North American SaaS / enterprise product work.",
+  },
+  {
+    name: "Listen Labs",
+    region: "us",
+    line: "Phoenux collaboration in the generative AI / product design lane.",
+  },
+  {
+    name: "Ford",
+    region: "us",
+    line: "Enterprise brand surfaces while growing TkXel’s design function into a real department.",
+  },
+  {
+    name: "Barclays",
+    region: "us",
+    line: "Global brand digital work out of TkXel’s early design team.",
+  },
+  {
+    name: "NBCUniversal",
+    region: "us",
+    line: "Consumer and entertainment brand work from the same TkXel chapter.",
+  },
+  {
+    name: "YMCA",
+    region: "us",
+    line: "On the collaboration roster — brief stays light where the NDA still does the talking.",
+  },
+  {
+    name: "Adventist Risk Management",
+    region: "us",
+    line: "On the collaboration roster — details kept quiet on purpose.",
+  },
+  {
+    name: "Foodics",
+    region: "mena",
+    line: "Phoenux engagement in F&B tech across the Gulf.",
+  },
+  {
+    name: "STC",
+    region: "mena",
+    line: "Phoenux studio work with a major MENA telecom / digital product surface.",
+  },
+  {
+    name: "TCS Pakistan",
+    region: "mena",
+    line: "Designed for Pakistan’s logistics giant during the TkXel years.",
+  },
+  {
+    name: "Royal Balm",
+    region: "mena",
+    line: "Web and brand work from the PopCorn agency chapter.",
+  },
+  {
+    name: "Fatburger",
+    region: "mena",
+    line: "Digital media and web delivery while co-founding PopCorn.",
+  },
+  {
+    name: "Darul Qasim",
+    region: "mena",
+    line: "On the collaboration roster — story stays short where it should.",
+  },
+  {
+    name: "MyKneeScan",
+    region: "mena",
+    line: "On the collaboration roster — details stay light where they should.",
+  },
+  {
+    name: "Zoe Bios Creative",
+    region: "mena",
+    line: "On the collaboration roster — one line is enough for the homepage.",
+  },
+]
+
 export const clients = {
-  us: [
-    "Sendoso",
-    "Whirlpool",
-    "YMCA",
-    "Adventist Risk Management",
-    "Dealpath",
-    "Listen Labs",
-    "Ford",
-    "Barclays",
-    "NBCUniversal",
-  ],
-  mena: [
-    "Foodics",
-    "STC",
-    "Darul Qasim",
-    "MyKneeScan",
-    "Zoe Bios Creative",
-    "TCS Pakistan",
-    "Royal Balm",
-    "Fatburger",
-  ],
+  us: clientCredits.filter((c) => c.region === "us").map((c) => c.name),
+  mena: clientCredits.filter((c) => c.region === "mena").map((c) => c.name),
 }
 
 export const achievements = [

@@ -33,7 +33,7 @@ export function SeeMore({
       <button
         type="button"
         className={cn(
-          "mt-3 inline-flex min-h-9 items-center border-b border-foreground/40 pb-0.5 text-xs font-medium tracking-tight text-foreground transition-colors hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "mt-3 inline-flex min-h-11 items-center border-b border-foreground/40 py-2 text-sm font-medium tracking-tight text-foreground transition-colors hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:min-h-9 sm:py-0.5 sm:text-xs",
           buttonClassName
         )}
         aria-expanded={expanded}

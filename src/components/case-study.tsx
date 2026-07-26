@@ -17,13 +17,16 @@ export function SiteChrome({
 }) {
   return (
     <div className="flex min-h-full flex-1 flex-col bg-canvas">
-      <header className="sticky top-0 z-20 border-b border-foreground/18 bg-canvas/90 backdrop-blur-sm">
-        <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6 md:px-8">
+      <header className="sticky top-0 z-20 border-b border-foreground/18 bg-canvas/90 pt-[env(safe-area-inset-top)] backdrop-blur-sm">
+        <div className="mx-auto flex min-h-14 max-w-5xl items-center justify-between gap-2 px-4 py-2 sm:px-6 md:px-8">
           <Link
             href="/#top"
-            className="text-sm font-semibold tracking-tight text-foreground transition-colors hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            lang="ur"
+            dir="rtl"
+            className="shrink-0 text-lg leading-none font-semibold tracking-tight text-foreground transition-colors hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:text-base"
+            style={{ fontFamily: "var(--font-urdu), 'Noto Nastaliq Urdu', serif" }}
           >
-            {profile.monogram}
+            {profile.nameUrdu}
           </Link>
           <nav aria-label="Primary" className="hidden items-center gap-6 sm:flex">
             {[
@@ -45,7 +48,7 @@ export function SiteChrome({
               </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <Button
               render={
                 <a
