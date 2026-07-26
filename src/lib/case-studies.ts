@@ -27,6 +27,8 @@ export type CaseStudy = {
   figmaNodeId: string
   /** Full-bleed PDF / document sequence — preserves image order and aspect */
   presentation?: "default" | "document"
+  /** Coming-soon studies stay visible in the grid but are not linkable or routable */
+  status?: "published" | "coming-soon"
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -318,6 +320,7 @@ export const caseStudies: CaseStudy[] = [
     tags: ["B2B SaaS", "Campaigns", "Research", "IA"],
     cover: "/case-studies/campaigns/cover.jpg",
     presentation: "document",
+    status: "coming-soon",
     summary:
       "An 8-month engagement reinventing how Sendoso users create and manage “touches.” Touches were hard to understand, costly to set up, and weak at mapping into CRM campaigns — driving low adoption and retention risk.",
     challenge:
@@ -686,10 +689,22 @@ export const caseStudies: CaseStudy[] = [
   },
 ]
 
+export function isCaseStudyPublished(study: CaseStudy) {
+  return study.status !== "coming-soon"
+}
+
 export function getCaseStudy(slug: string) {
   return caseStudies.find((study) => study.slug === slug)
 }
 
+export function getPublishedCaseStudy(slug: string) {
+  const study = getCaseStudy(slug)
+  if (!study || !isCaseStudyPublished(study)) return undefined
+  return study
+}
+
 export function getCaseStudySlugs() {
-  return caseStudies.map((study) => study.slug)
+  return caseStudies
+    .filter(isCaseStudyPublished)
+    .map((study) => study.slug)
 }

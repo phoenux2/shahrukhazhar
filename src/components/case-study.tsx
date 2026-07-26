@@ -21,9 +21,12 @@ export function SiteChrome({
         <div className="mx-auto flex min-h-14 max-w-5xl items-center justify-between gap-2 px-4 py-2 sm:px-6 md:px-8">
           <Link
             href="/#top"
-            className="shrink-0 text-sm font-semibold tracking-tight text-foreground transition-colors hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            lang="ur"
+            dir="rtl"
+            className="shrink-0 text-lg leading-none font-semibold tracking-tight text-foreground transition-colors hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:text-base"
+            style={{ fontFamily: "var(--font-urdu), 'Noto Nastaliq Urdu', serif" }}
           >
-            {profile.monogram}
+            {profile.nameUrdu}
           </Link>
           <nav aria-label="Primary" className="hidden items-center gap-6 sm:flex">
             {[
@@ -105,20 +108,29 @@ export function WorkGrid({ limit }: { limit?: number }) {
 
   return (
     <ul className="grid gap-0 border-t border-foreground/12">
-      {studies.map((study) => (
-        <li key={study.slug} className="border-b border-foreground/12">
-          <Link
-            href={`/work/${study.slug}`}
-            className="group grid gap-6 py-8 transition-colors hover:bg-foreground/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:grid-cols-[220px_1fr_auto] md:items-center md:gap-10 md:py-10"
-          >
+      {studies.map((study) => {
+        const comingSoon = study.status === "coming-soon"
+        const body = (
+          <>
             <div className="relative aspect-[4/3] overflow-hidden border border-foreground/18 bg-muted">
               <Image
                 src={study.cover}
                 alt=""
                 fill
-                className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                className={
+                  comingSoon
+                    ? "object-cover opacity-50 grayscale"
+                    : "object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                }
                 sizes="220px"
               />
+              {comingSoon ? (
+                <div className="absolute inset-0 flex items-center justify-center bg-canvas/40 backdrop-blur-[2px]">
+                  <span className="border border-foreground/18 bg-canvas px-3 py-1.5 text-[10px] font-medium tracking-[0.14em] text-foreground uppercase">
+                    Coming soon
+                  </span>
+                </div>
+              ) : null}
             </div>
             <div>
               <p className="micro-label">{study.company}</p>
@@ -129,20 +141,53 @@ export function WorkGrid({ limit }: { limit?: number }) {
                 {study.subtitle}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
-                {study.tags.slice(0, 3).map((tag) => (
+                {comingSoon ? (
+                  <Badge variant="secondary">Coming soon</Badge>
+                ) : null}
+                {study.tags.slice(0, comingSoon ? 2 : 3).map((tag) => (
                   <Badge key={tag} variant="secondary">
                     {tag}
                   </Badge>
                 ))}
               </div>
             </div>
-            <span className="hidden items-center gap-1 text-sm font-medium text-foreground md:inline-flex">
-              View
-              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <span
+              className={`hidden items-center gap-1 text-sm font-medium md:inline-flex ${
+                comingSoon ? "text-muted-foreground" : "text-foreground"
+              }`}
+            >
+              {comingSoon ? (
+                "Coming soon"
+              ) : (
+                <>
+                  View
+                  <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </>
+              )}
             </span>
-          </Link>
-        </li>
-      ))}
+          </>
+        )
+
+        return (
+          <li key={study.slug} className="border-b border-foreground/12">
+            {comingSoon ? (
+              <div
+                aria-disabled="true"
+                className="grid cursor-not-allowed gap-6 py-8 opacity-80 md:grid-cols-[220px_1fr_auto] md:items-center md:gap-10 md:py-10"
+              >
+                {body}
+              </div>
+            ) : (
+              <Link
+                href={`/work/${study.slug}`}
+                className="group grid gap-6 py-8 transition-colors hover:bg-foreground/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:grid-cols-[220px_1fr_auto] md:items-center md:gap-10 md:py-10"
+              >
+                {body}
+              </Link>
+            )}
+          </li>
+        )
+      })}
     </ul>
   )
 }

@@ -8,6 +8,7 @@ import { CaseStudyGate } from "@/components/case-study-gate"
 import {
   getCaseStudy,
   getCaseStudySlugs,
+  isCaseStudyPublished,
 } from "@/lib/case-studies"
 
 type Props = {
@@ -21,7 +22,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const study = getCaseStudy(slug)
-  if (!study) return { title: "Case study" }
+  if (!study || !isCaseStudyPublished(study)) return { title: "Case study" }
 
   return {
     title: `${study.title} — Shahrukh Azhar`,
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CaseStudyPage({ params }: Props) {
   const { slug } = await params
   const study = getCaseStudy(slug)
-  if (!study) notFound()
+  if (!study || !isCaseStudyPublished(study)) notFound()
 
   return (
     <SiteChrome active="work">
