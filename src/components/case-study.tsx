@@ -21,12 +21,9 @@ export function SiteChrome({
         <div className="mx-auto flex min-h-14 max-w-5xl items-center justify-between gap-2 px-4 py-2 sm:px-6 md:px-8">
           <Link
             href="/#top"
-            lang="ur"
-            dir="rtl"
-            className="shrink-0 text-lg leading-none font-semibold tracking-tight text-foreground transition-colors hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:text-base"
-            style={{ fontFamily: "var(--font-urdu), 'Noto Nastaliq Urdu', serif" }}
+            className="shrink-0 text-sm font-semibold tracking-tight text-foreground transition-colors hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
-            {profile.nameUrdu}
+            {profile.monogram}
           </Link>
           <nav aria-label="Primary" className="hidden items-center gap-6 sm:flex">
             {[
