@@ -1,6 +1,7 @@
 export const profile = {
   name: "Shahrukh Azhar",
   nameUrdu: "شاہ رخ اظہر",
+  monogram: "SA",
   title:
     "Fractional Head of Design · Product, Systems & UX Strategy",
   location: "Dubai, UAE · Lahore, Pakistan",
