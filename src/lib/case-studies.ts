@@ -252,8 +252,9 @@ export const caseStudies: CaseStudy[] = [
     year: "2019 – 2022",
     tags: ["B2B SaaS", "Product Design", "Research", "IA"],
     cover: "/case-studies/sendoso/hero.jpg",
+    presentation: "document",
     summary:
-      "Sendoso is a B2B corporate gifting platform. I led product design from research through shipped UI across the send flow, marketplace, tracking, and admin — so marketers and senders finally shared the same story of what to send, who sent it, and what happened next.",
+      "Sendoso is a B2B corporate gifting platform. As Senior Product Designer, I led product design from research through shipped UI across the send flow, marketplace, tracking, and admin — so marketers and senders finally shared the same story of what to send, who sent it, and what happened next.",
     challenge:
       "Marketers and sales were flying blind. Touches were hard to find, harder to measure, and trust between the two sides was thin — no precise library search, no reliable alerts for new Touches, and managers couldn’t see what converted.",
     outcome: [
@@ -301,7 +302,9 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         title: "How might we",
-        body: ["The questions that shaped the product."],
+        body: [
+          "Interview friction became design questions — the same HMW set I carried from stickies into the Touch builder, marketplace, and tracker.",
+        ],
         bullets: [
           "Guide assignment of Touches to teams and individuals for better ROI",
           "Surface sending performance so creators can see what’s working",
@@ -345,9 +348,13 @@ export const caseStudies: CaseStudy[] = [
         ],
         figures: [
           {
-            src: "/case-studies/sendoso/marketplace.jpg",
-            alt: "Sendoso gift marketplace home",
+            src: "/case-studies/sendoso/gallery-2.jpg",
+            alt: "Sendoso marketplace curated picks and catalog",
             caption: "Budget, curated picks, and templates in one destination",
+          },
+          {
+            src: "/case-studies/sendoso/gallery-4.jpg",
+            alt: "Sendoso marketplace gift browsing",
           },
         ],
       },
@@ -362,6 +369,10 @@ export const caseStudies: CaseStudy[] = [
             src: "/case-studies/sendoso/send-tracker.jpg",
             alt: "Sendoso send tracker listing every Touch",
             caption: "Shared visibility for managers and senders",
+          },
+          {
+            src: "/case-studies/sendoso/gallery-6.jpg",
+            alt: "Sendoso notification and tracking surfaces",
           },
         ],
       },
@@ -422,6 +433,10 @@ export const caseStudies: CaseStudy[] = [
           },
           {
             src: "/case-studies/sendoso/gallery-7.jpg",
+            alt: "Sendoso product UI gallery",
+          },
+          {
+            src: "/case-studies/sendoso/gallery-9.jpg",
             alt: "Sendoso product UI gallery",
           },
         ],
