@@ -11,15 +11,13 @@ import { ExpandableText, SeeMore } from "@/components/see-more"
 import { WorkGrid } from "@/components/case-study"
 import { HeroName } from "@/components/hero-name"
 import {
-  achievements,
   clientCredits,
-  competencies,
   education,
   experience,
   focusAreas,
   outsideWork,
   profile,
-  tools,
+  testimonials,
   type ExperienceItem,
 } from "@/lib/resume"
 import { ArrowUpRight, Calendar, Download, Mail, MapPin, Phone } from "lucide-react"
@@ -149,6 +147,7 @@ function SiteHeader() {
             ["Work", "#work"],
             ["Experience", "#experience"],
             ["Practice", "#practice"],
+            ["Testimonials", "#testimonials"],
             ["Outside", "#outside"],
             ["Contact", "#contact"],
           ].map(([label, href]) => (
@@ -258,7 +257,7 @@ function Hero() {
             <ArrowUpRight className="size-4" />
           </Button>
           <Button
-            render={<a href="/Shahrukh-Azhar-Resume.docx" download />}
+            render={<a href="/Shahrukh-Azhar-Resume.pdf" download />}
             variant="ghost"
             size="lg"
           >
@@ -349,20 +348,16 @@ function PracticeSection() {
       <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-24">
         <SectionHeader
           label="Practice"
-          title="How I work"
-          description="Good design does not slow teams down — it helps them move in the same direction, faster. At Phoenux the operating order is simple: people, design, money."
+          title="What I focus on"
         />
 
         <div className="mb-10 surface-quiet bg-card px-5 py-4 md:px-6">
-          <MicroLabel>Core principle</MicroLabel>
+          <MicroLabel>How I work</MicroLabel>
           <p className="mt-2 text-lg font-semibold tracking-tight text-foreground">
             People · Design · Money
           </p>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            Build the team and the culture first, protect craft second, and let
-            commercial outcomes follow. Delivery-focused without losing a
-            design-oriented environment — that is how Phoenux scales teams into
-            product orgs.
+            Build the team first. Protect craft second. Let the money follow.
           </p>
         </div>
 
@@ -381,22 +376,6 @@ function PracticeSection() {
         </div>
 
         <Accordion className="mt-10 border-t border-foreground/12">
-          <AccordionItem value="outcomes">
-            <AccordionTrigger>Selected outcomes</AccordionTrigger>
-            <AccordionContent>
-              <ul className="space-y-4 pt-1">
-                {achievements.map((item) => (
-                  <li
-                    key={item}
-                    className="text-sm leading-relaxed text-muted-foreground"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
-
           <AccordionItem value="collaborations">
             <AccordionTrigger>Collaborations</AccordionTrigger>
             <AccordionContent>
@@ -436,31 +415,53 @@ function PracticeSection() {
               </div>
             </AccordionContent>
           </AccordionItem>
-
-          <AccordionItem value="skills">
-            <AccordionTrigger>Competencies & tools</AccordionTrigger>
-            <AccordionContent>
-              <div className="pt-1">
-                <MicroLabel>Competencies</MicroLabel>
-                <p className="mt-3 text-sm leading-8 text-muted-foreground">
-                  {competencies.map((skill, i) => (
-                    <span key={skill}>
-                      <span className="text-foreground/85">{skill}</span>
-                      {i < competencies.length - 1 ? (
-                        <span className="mx-2 text-foreground/25">/</span>
-                      ) : null}
-                    </span>
-                  ))}
-                </p>
-                <Separator className="my-6 bg-foreground/12" />
-                <MicroLabel>Tools</MicroLabel>
-                <p className="mt-3 text-xs tracking-wide text-muted-foreground">
-                  {tools.join("  ·  ")}
-                </p>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
         </Accordion>
+      </div>
+    </section>
+  )
+}
+
+function TestimonialsSection() {
+  return (
+    <section
+      id="testimonials"
+      className="scroll-mt-28 border-b border-foreground/18 sm:scroll-mt-16"
+    >
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-24">
+        <SectionHeader
+          label="Testimonials"
+          title="What people say"
+          description="Recommendations from clients, colleagues, and collaborators."
+        />
+        <div className="grid gap-6 md:gap-8">
+          {testimonials.map((testimonial) => (
+            <div
+              key={testimonial.name + testimonial.company}
+              className="rounded-lg border border-foreground/12 bg-background/40 p-6 transition-colors hover:border-foreground/20"
+            >
+              <div className="mb-4 flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="font-semibold text-foreground">
+                    {testimonial.name}
+                  </h3>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {testimonial.title}
+                    {testimonial.company && ` · ${testimonial.company}`}
+                  </p>
+                  <p className="mt-1 text-xs text-muted-foreground/70">
+                    {testimonial.relationship}
+                  </p>
+                </div>
+                <time className="shrink-0 text-xs text-muted-foreground">
+                  {testimonial.date}
+                </time>
+              </div>
+              <p className="text-sm leading-relaxed text-foreground/85">
+                {testimonial.text}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -616,6 +617,7 @@ export default function Home() {
         <WorkSection />
         <ExperienceSection />
         <PracticeSection />
+        <TestimonialsSection />
         <OutsideWorkSection />
         <EducationSection />
         <ContactSection />
