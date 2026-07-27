@@ -1,5 +1,12 @@
 import type { Metadata } from "next"
 import { JetBrains_Mono, Noto_Nastaliq_Urdu } from "next/font/google"
+import JsonLd from "@/components/JsonLd"
+import {
+  personJsonLd,
+  profilePageJsonLd,
+  websiteJsonLd,
+} from "@/lib/structuredData"
+import { PERSON, SITE_URL } from "@/lib/site"
 import "./globals.css"
 
 const jetbrains = JetBrains_Mono({
@@ -14,11 +21,15 @@ const urdu = Noto_Nastaliq_Urdu({
   weight: ["400", "500", "600", "700"],
 })
 
+const ogImage = `/og?title=${encodeURIComponent(PERSON.name)}&subtitle=${encodeURIComponent(PERSON.description)}`
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://shahrukhazhar.com"),
-  title: "Shahrukh Azhar — Product Design Lead",
-  description:
-    "Fractional Head of Design. Founder of Phoenux.Design and Ferd.AI. Formerly Lead Product Designer at Unlayer (YC W22). 12+ years across SaaS, enterprise, and AI products.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${PERSON.name} — Product Design Lead`,
+    template: `%s · ${PERSON.name}`,
+  },
+  description: PERSON.description,
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -27,11 +38,14 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   openGraph: {
-    title: "Shahrukh Azhar — Product Design Lead",
-    description:
-      "Product design leader specializing in systems, strategy, and complex B2B platforms.",
+    title: `${PERSON.name} — Product Design Lead`,
+    description: PERSON.description,
     type: "website",
-    url: "https://shahrukhazhar.com",
+    url: SITE_URL,
+    images: [{ url: ogImage, width: 1200, height: 630 }],
+  },
+  alternates: {
+    canonical: "/",
   },
 }
 
@@ -45,7 +59,12 @@ export default function RootLayout({
       lang="en"
       className={`${jetbrains.variable} ${urdu.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col font-mono">{children}</body>
+      <body className="flex min-h-full flex-col font-mono">
+        <JsonLd id="person-jsonld" data={personJsonLd()} />
+        <JsonLd id="website-jsonld" data={websiteJsonLd()} />
+        <JsonLd id="profilepage-jsonld" data={profilePageJsonLd()} />
+        {children}
+      </body>
     </html>
   )
 }
