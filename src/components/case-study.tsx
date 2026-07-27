@@ -95,6 +95,12 @@ export function SiteChrome({
             >
               Work
             </Link>
+            <Link
+              href="/llms.txt"
+              className="transition-colors hover:text-background hover:underline focus-visible:text-background focus-visible:underline focus-visible:outline-none"
+            >
+              llms.txt
+            </Link>
             <span>© {new Date().getFullYear()}</span>
           </div>
         </div>
