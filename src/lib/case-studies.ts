@@ -34,8 +34,8 @@ export type CaseStudy = {
 export const caseStudies: CaseStudy[] = [
   {
     slug: "unlayer",
-    title: "Unlayer",
-    subtitle: "Scaling a YC Product to Global Enterprise Standards",
+    title: "Scaling a YC Product to Global Enterprise Standards",
+    subtitle: "Editor UX, design systems, and AI integration for an embeddable email builder",
     company: "Unlayer (YC W22)",
     role: "User Research · Surveys · Journey Mapping · Wireframing · Screen Flows · Visual Design · Interaction Design",
     year: "2022-25",
@@ -244,9 +244,9 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "sendoso",
-    title: "Growing Sendoso",
+    title: "Unifying the Send Flow for Marketers and Sales",
     subtitle:
-      "Touch builder, marketplace, and shared send visibility — research to shipped UI",
+      "Touch builder, marketplace, and shared visibility — research to shipped UI",
     company: "Sendoso",
     role: "Senior Product Designer · Research · IA · Design QA",
     year: "2019 – 2022",
