@@ -11,7 +11,6 @@ import { ExpandableText, SeeMore } from "@/components/see-more"
 import { WorkGrid } from "@/components/case-study"
 import { HeroName } from "@/components/hero-name"
 import JsonLd from "@/components/JsonLd"
-import { homeFaqs } from "@/lib/homeFaqs"
 import {
   clientCredits,
   education,
@@ -22,7 +21,6 @@ import {
   testimonials,
   type ExperienceItem,
 } from "@/lib/resume"
-import { faqPageJsonLd } from "@/lib/structuredData"
 import { ArrowUpRight, Calendar, Download, Mail, MapPin, Phone } from "lucide-react"
 
 const FEATURED_EXPERIENCE_COUNT = 4
@@ -497,35 +495,6 @@ function OutsideWorkSection() {
   )
 }
 
-function FaqSection() {
-  return (
-    <section
-      id="faq"
-      className="scroll-mt-28 border-b border-foreground/18 sm:scroll-mt-16"
-    >
-      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-24">
-        <SectionHeader
-          label="FAQ"
-          title="Common questions"
-          description="Short, direct answers — for humans skimming and machines extracting."
-        />
-        <Accordion className="border-t border-foreground/12">
-          {homeFaqs.map((faq) => (
-            <AccordionItem key={faq.question} value={faq.question}>
-              <AccordionTrigger>{faq.question}</AccordionTrigger>
-              <AccordionContent>
-                <p className="text-base leading-relaxed text-muted-foreground sm:text-sm">
-                  {faq.answer}
-                </p>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
-    </section>
-  )
-}
-
 function EducationSection() {
   return (
     <section className="border-b border-foreground/18">
@@ -633,12 +602,6 @@ function SiteFooter() {
           >
             LinkedIn
           </a>
-          <a
-            href="/llms.txt"
-            className="transition-colors hover:text-background hover:underline focus-visible:text-background focus-visible:underline focus-visible:outline-none"
-          >
-            llms.txt
-          </a>
           <span>© {new Date().getFullYear()}</span>
         </div>
       </div>
@@ -649,7 +612,6 @@ function SiteFooter() {
 export default function Home() {
   return (
     <div className="flex min-h-full flex-1 flex-col bg-canvas">
-      <JsonLd id="home-faq-jsonld" data={faqPageJsonLd([...homeFaqs])} />
       <SiteHeader />
       <main className="flex-1">
         <Hero />
@@ -658,7 +620,6 @@ export default function Home() {
         <PracticeSection />
         <TestimonialsSection />
         <OutsideWorkSection />
-        <FaqSection />
         <EducationSection />
         <ContactSection />
       </main>
