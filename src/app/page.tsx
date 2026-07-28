@@ -432,37 +432,52 @@ function TestimonialsSection() {
         <SectionHeader
           label="Testimonials"
           title="What people say"
-          description="Recommendations from clients, colleagues, and collaborators."
+          description="LinkedIn recommendations from Sendoso colleagues, plus client and Clutch endorsements."
         />
-        <div className="grid gap-6 md:gap-8">
+        <ul className="space-y-0 border-t border-foreground/12">
           {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.name + testimonial.company}
-              className="rounded-lg border border-foreground/12 bg-background/40 p-6 transition-colors hover:border-foreground/20"
+            <li
+              key={`${testimonial.name}-${testimonial.company}-${testimonial.date}`}
+              className="border-b border-foreground/12 py-8"
             >
-              <div className="mb-4 flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="font-semibold text-foreground">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-base font-semibold tracking-tight text-foreground sm:text-lg">
                     {testimonial.name}
                   </h3>
                   <p className="mt-1 text-sm text-muted-foreground">
                     {testimonial.title}
-                    {testimonial.company && ` · ${testimonial.company}`}
+                    {testimonial.company ? ` · ${testimonial.company}` : null}
                   </p>
-                  <p className="mt-1 text-xs text-muted-foreground/70">
+                  <p className="mt-1 text-xs text-muted-foreground/80">
                     {testimonial.relationship}
+                    {testimonial.category ? ` · ${testimonial.category}` : null}
                   </p>
                 </div>
-                <time className="shrink-0 text-xs text-muted-foreground">
-                  {testimonial.date}
-                </time>
+                <div className="flex shrink-0 flex-col items-end gap-1">
+                  <time className="text-xs text-muted-foreground">
+                    {testimonial.date}
+                  </time>
+                  {testimonial.source ? (
+                    <span className="micro-label text-foreground/70">
+                      {testimonial.source === "linkedin"
+                        ? "LinkedIn"
+                        : testimonial.source === "clutch"
+                          ? "Clutch"
+                          : "Verified"}
+                    </span>
+                  ) : null}
+                </div>
               </div>
-              <p className="text-sm leading-relaxed text-foreground/85">
-                {testimonial.text}
-              </p>
-            </div>
+              <div className="mt-4 max-w-3xl">
+                <ExpandableText
+                  text={`“${testimonial.text}”`}
+                  className="text-base leading-relaxed text-foreground/85 sm:text-sm"
+                />
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   )
