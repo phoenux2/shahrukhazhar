@@ -13,6 +13,7 @@ import {
   type ReactNode,
 } from "react"
 
+import { ConsentBanner } from "@/components/analytics/consent-banner"
 import { BookedHandler } from "@/components/analytics/booked-handler"
 import { UtmCapture } from "@/components/analytics/utm-capture"
 import {
@@ -90,6 +91,7 @@ export function AnalyticsProviders({ children }: { children: ReactNode }) {
   return (
     <PostHogProvider client={posthog}>
       {children}
+      <ConsentBanner />
       <UtmCapture />
       <Suspense fallback={null}>
         <BookedHandler />
