@@ -4,7 +4,6 @@ import {
   CaseStudyView,
   SiteChrome,
 } from "@/components/case-study"
-import { CaseStudyGate } from "@/components/case-study-gate"
 import JsonLd from "@/components/JsonLd"
 import {
   getCaseStudy,
@@ -75,9 +74,7 @@ export default async function CaseStudyPage({ params }: Props) {
         })}
       />
       <main className="flex-1">
-        <CaseStudyGate slug={study.slug} title={study.title}>
-          <CaseStudyView study={study} />
-        </CaseStudyGate>
+        <CaseStudyView study={study} />
       </main>
     </SiteChrome>
   )
