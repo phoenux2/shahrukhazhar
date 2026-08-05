@@ -3,6 +3,11 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { CaseStudyImage } from "@/components/case-study-image"
+import {
+  TrackedCta,
+  TrackedTextLink,
+} from "@/components/analytics/outbound-link"
+import { StickyMobileCta } from "@/components/analytics/sticky-cta"
 import { caseStudies } from "@/lib/case-studies"
 import { profile } from "@/lib/resume"
 import { ArrowLeft, ArrowUpRight, Calendar, Mail } from "lucide-react"
@@ -16,7 +21,7 @@ export function SiteChrome({
   active?: "work" | "home"
 }) {
   return (
-    <div className="flex min-h-full flex-1 flex-col bg-canvas">
+    <div className="flex min-h-full flex-1 flex-col bg-canvas pb-20 sm:pb-0">
       <header className="sticky top-0 z-20 border-b border-foreground/18 bg-canvas/90 pt-[env(safe-area-inset-top)] backdrop-blur-sm">
         <div className="mx-auto flex min-h-14 max-w-5xl items-center justify-between gap-2 px-4 py-2 sm:px-6 md:px-8">
           <Link
@@ -49,24 +54,27 @@ export function SiteChrome({
             ))}
           </nav>
           <div className="flex shrink-0 items-center gap-2">
-            <Button
-              render={
-                <a
-                  href={profile.calendly}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                />
-              }
+            <TrackedCta
+              location="case_study_header"
+              destination="calendly"
+              href={profile.calendly}
+              target="_blank"
+              rel="noopener noreferrer"
               variant="outline"
               size="sm"
             >
               <Calendar className="size-3.5" />
               Call
-            </Button>
-            <Button render={<a href={`mailto:${profile.email}`} />} size="sm">
+            </TrackedCta>
+            <TrackedCta
+              location="case_study_header"
+              destination="email"
+              href={`mailto:${profile.email}`}
+              size="sm"
+            >
               <Mail className="size-3.5" />
               Email
-            </Button>
+            </TrackedCta>
           </div>
         </div>
       </header>
@@ -75,20 +83,24 @@ export function SiteChrome({
         <div className="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-8 sm:flex-row sm:items-center sm:justify-between md:px-8">
           <p className="text-sm font-semibold tracking-tight">{profile.name}</p>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-background/55">
-            <a
+            <TrackedTextLink
+              location="case_study_footer"
+              destination="calendly"
               href={profile.calendly}
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors hover:text-background hover:underline focus-visible:text-background focus-visible:underline focus-visible:outline-none"
             >
               Schedule a call
-            </a>
-            <a
+            </TrackedTextLink>
+            <TrackedTextLink
+              location="case_study_footer"
+              destination="email"
               href={`mailto:${profile.email}`}
               className="transition-colors hover:text-background hover:underline focus-visible:text-background focus-visible:underline focus-visible:outline-none"
             >
               Email
-            </a>
+            </TrackedTextLink>
             <Link
               href="/#work"
               className="transition-colors hover:text-background hover:underline focus-visible:text-background focus-visible:underline focus-visible:outline-none"
@@ -105,6 +117,7 @@ export function SiteChrome({
           </div>
         </div>
       </footer>
+      <StickyMobileCta location="sticky_case_study" />
     </div>
   )
 }
@@ -433,10 +446,27 @@ export function CaseStudyView({ study }: { study: CaseStudy }) {
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button render={<a href={`mailto:${profile.email}`} />} size="lg">
+            <TrackedCta
+              location="case_study_bottom"
+              destination="calendly"
+              href={profile.calendly}
+              target="_blank"
+              rel="noopener noreferrer"
+              size="lg"
+            >
+              <Calendar className="size-4" />
+              Schedule a call
+            </TrackedCta>
+            <TrackedCta
+              location="case_study_bottom"
+              destination="email"
+              href={`mailto:${profile.email}`}
+              variant="outline"
+              size="lg"
+            >
               Start a conversation
               <ArrowUpRight className="size-4" />
-            </Button>
+            </TrackedCta>
             <Button render={<Link href="/#work" />} variant="outline" size="lg">
               More work
             </Button>

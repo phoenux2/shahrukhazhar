@@ -5,12 +5,17 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { ExpandableText, SeeMore } from "@/components/see-more"
 import { WorkGrid } from "@/components/case-study"
 import { HeroName } from "@/components/hero-name"
+import {
+  TrackedCta,
+  TrackedTextLink,
+} from "@/components/analytics/outbound-link"
+import { StickyMobileCta } from "@/components/analytics/sticky-cta"
 import JsonLd from "@/components/JsonLd"
+import { homeFaqs } from "@/lib/homeFaqs"
 import {
   clientCredits,
   education,
@@ -21,6 +26,7 @@ import {
   testimonials,
   type ExperienceItem,
 } from "@/lib/resume"
+import { faqPageJsonLd } from "@/lib/structuredData"
 import { ArrowUpRight, Calendar, Download, Mail, MapPin, Phone } from "lucide-react"
 
 const FEATURED_EXPERIENCE_COUNT = 4
@@ -162,24 +168,27 @@ function SiteHeader() {
           ))}
         </nav>
         <div className="flex shrink-0 items-center gap-2">
-          <Button
-            render={
-              <a
-                href={profile.calendly}
-                target="_blank"
-                rel="noopener noreferrer"
-              />
-            }
+          <TrackedCta
+            location="header"
+            destination="calendly"
+            href={profile.calendly}
+            target="_blank"
+            rel="noopener noreferrer"
             variant="outline"
             size="sm"
           >
             <Calendar className="size-3.5" />
             Call
-          </Button>
-          <Button render={<a href={`mailto:${profile.email}`} />} size="sm">
+          </TrackedCta>
+          <TrackedCta
+            location="header"
+            destination="email"
+            href={`mailto:${profile.email}`}
+            size="sm"
+          >
             <Mail className="size-3.5" />
             Email
-          </Button>
+          </TrackedCta>
         </div>
       </div>
       {/* Mobile section jump — readable chips, easy thumb reach */}
@@ -225,46 +234,50 @@ function Hero() {
         </p>
 
         <div className="animate-rise-delay-3 mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center">
-          <Button render={<a href={`mailto:${profile.email}`} />} size="lg">
-            Start a conversation
-            <ArrowUpRight className="size-4" />
-          </Button>
-          <Button
-            render={
-              <a
-                href={profile.calendly}
-                target="_blank"
-                rel="noopener noreferrer"
-              />
-            }
-            variant="outline"
+          <TrackedCta
+            location="hero"
+            destination="calendly"
+            href={profile.calendly}
+            target="_blank"
+            rel="noopener noreferrer"
             size="lg"
           >
             <Calendar className="size-4" />
             Schedule a call
-          </Button>
-          <Button
-            render={
-              <a
-                href={profile.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-              />
-            }
+          </TrackedCta>
+          <TrackedCta
+            location="hero"
+            destination="email"
+            href={`mailto:${profile.email}`}
+            variant="outline"
+            size="lg"
+          >
+            Start a conversation
+            <ArrowUpRight className="size-4" />
+          </TrackedCta>
+          <TrackedCta
+            location="hero"
+            destination="linkedin"
+            href={profile.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
             variant="outline"
             size="lg"
           >
             LinkedIn
             <ArrowUpRight className="size-4" />
-          </Button>
-          <Button
-            render={<a href="/Shahrukh-Azhar-Resume.pdf" download />}
+          </TrackedCta>
+          <TrackedCta
+            location="hero"
+            destination="resume"
+            href="/Shahrukh-Azhar-Resume.pdf"
+            download
             variant="ghost"
             size="lg"
           >
             <Download className="size-4" />
             Resume
-          </Button>
+          </TrackedCta>
         </div>
 
         <p className="animate-rise-delay-3 mt-8 flex items-center gap-2 text-xs text-muted-foreground">
@@ -544,45 +557,49 @@ function ContactSection() {
         </p>
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <Button
-            render={
-              <a
-                href={profile.calendly}
-                target="_blank"
-                rel="noopener noreferrer"
-              />
-            }
+          <TrackedCta
+            location="contact"
+            destination="calendly"
+            href={profile.calendly}
+            target="_blank"
+            rel="noopener noreferrer"
             size="lg"
           >
             <Calendar className="size-4" />
             Schedule a call
-          </Button>
-          <Button render={<a href={`mailto:${profile.email}`} />} variant="outline" size="lg">
+          </TrackedCta>
+          <TrackedCta
+            location="contact"
+            destination="email"
+            href={`mailto:${profile.email}`}
+            variant="outline"
+            size="lg"
+          >
             <Mail className="size-4" />
             {profile.email}
-          </Button>
-          <Button
-            render={<a href={profile.phoneHref} />}
+          </TrackedCta>
+          <TrackedCta
+            location="contact"
+            destination="tel"
+            href={profile.phoneHref}
             variant="outline"
             size="lg"
           >
             <Phone className="size-4" />
             {profile.phone}
-          </Button>
-          <Button
-            render={
-              <a
-                href={profile.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-              />
-            }
+          </TrackedCta>
+          <TrackedCta
+            location="contact"
+            destination="linkedin"
+            href={profile.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
             variant="outline"
             size="lg"
           >
             LinkedIn
             <ArrowUpRight className="size-4" />
-          </Button>
+          </TrackedCta>
         </div>
       </div>
     </section>
@@ -595,28 +612,34 @@ function SiteFooter() {
       <div className="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-8 sm:flex-row sm:items-center sm:justify-between md:px-8">
         <p className="text-sm font-semibold tracking-tight">{profile.name}</p>
         <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-background/55">
-          <a
+          <TrackedTextLink
+            location="footer"
+            destination="calendly"
             href={profile.calendly}
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors hover:text-background hover:underline focus-visible:text-background focus-visible:underline focus-visible:outline-none"
           >
             Schedule a call
-          </a>
-          <a
+          </TrackedTextLink>
+          <TrackedTextLink
+            location="footer"
+            destination="email"
             href={`mailto:${profile.email}`}
             className="transition-colors hover:text-background hover:underline focus-visible:text-background focus-visible:underline focus-visible:outline-none"
           >
             Email
-          </a>
-          <a
+          </TrackedTextLink>
+          <TrackedTextLink
+            location="footer"
+            destination="linkedin"
             href={profile.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors hover:text-background hover:underline focus-visible:text-background focus-visible:underline focus-visible:outline-none"
           >
             LinkedIn
-          </a>
+          </TrackedTextLink>
           <span>© {new Date().getFullYear()}</span>
         </div>
       </div>
@@ -627,8 +650,9 @@ function SiteFooter() {
 export default function Home() {
   return (
     <div className="flex min-h-full flex-1 flex-col bg-canvas">
+      <JsonLd id="home-faq-jsonld" data={faqPageJsonLd([...homeFaqs])} />
       <SiteHeader />
-      <main className="flex-1">
+      <main className="flex-1 pb-20 sm:pb-0">
         <Hero />
         <WorkSection />
         <ExperienceSection />
@@ -639,6 +663,7 @@ export default function Home() {
         <ContactSection />
       </main>
       <SiteFooter />
+      <StickyMobileCta location="sticky_home" />
     </div>
   )
 }

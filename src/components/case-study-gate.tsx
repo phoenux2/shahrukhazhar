@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useTransition } from "react"
+import { useEffect, useRef, useState, useTransition } from "react"
 import { Calendar, Coffee, Leaf, Video } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -14,12 +14,14 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { track, trackCta } from "@/lib/analytics"
 import {
   canViewCaseStudy,
   claimFreeCaseStudy,
   unlockAllCaseStudies,
 } from "@/lib/case-study-access"
 import { profile } from "@/lib/resume"
+import { readAttribution } from "@/lib/utm"
 import { cn } from "@/lib/utils"
 
 type MeetPreference = "tea" | "coffee" | "zoom"
@@ -39,7 +41,10 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
   const [note, setNote] = useState("")
   const [preference, setPreference] = useState<MeetPreference>("coffee")
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [pending, startTransition] = useTransition()
+  const gateViewed = useRef(false)
+  const caseViewed = useRef(false)
 
   useEffect(() => {
     const access = claimFreeCaseStudy(slug)
@@ -47,7 +52,18 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
     setBlocked(!allowed)
     setOpen(!allowed)
     setReady(true)
+
+    if (!caseViewed.current) {
+      caseViewed.current = true
+      track("case_study_view", { slug, unlocked: allowed })
+    }
   }, [slug])
+
+  useEffect(() => {
+    if (!ready || !open || !blocked || gateViewed.current) return
+    gateViewed.current = true
+    track("gate_view", { slug, title })
+  }, [ready, open, blocked, slug, title])
 
   function unlockAndClose() {
     unlockAllCaseStudies()
@@ -56,15 +72,13 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
   }
 
   function onBrowseFirst() {
+    track("gate_browse_first", { slug, title })
     startTransition(() => {
       unlockAndClose()
     })
   }
 
-  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    if (!name.trim() || !email.trim()) return
-
+  function openMailtoFallback() {
     const subject = encodeURIComponent(
       `Let's meet — interested in ${title}`
     )
@@ -84,8 +98,55 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
         .filter(Boolean)
         .join("\n")
     )
+    window.open(
+      `mailto:${profile.email}?subject=${subject}&body=${body}`,
+      "_blank"
+    )
+  }
 
-    window.open(`mailto:${profile.email}?subject=${subject}&body=${body}`, "_blank")
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (!name.trim() || !email.trim()) return
+
+    setError(null)
+    track("gate_submit_attempt", { slug, title, preference })
+
+    const attribution = readAttribution() ?? undefined
+    let delivered = false
+
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          note: note.trim(),
+          preference,
+          source: "case_study_gate",
+          slug,
+          title,
+          attribution,
+        }),
+      })
+      const data = (await response.json()) as {
+        ok?: boolean
+        fallback?: string
+      }
+      delivered = Boolean(data.ok)
+      if (!delivered) {
+        openMailtoFallback()
+      }
+    } catch {
+      openMailtoFallback()
+    }
+
+    track("lead_captured", {
+      slug,
+      title,
+      preference,
+      delivery: delivered ? "api" : "mailto",
+    })
     setSubmitted(true)
     unlockAndClose()
   }
@@ -126,7 +187,6 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
       <Dialog
         open={open}
         onOpenChange={(next) => {
-          // Keep modal sticky while gated — only unlock paths can dismiss
           if (!next && blocked) {
             setOpen(true)
             return
@@ -146,9 +206,8 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
               </DialogTitle>
               <DialogDescription className="text-sm leading-relaxed text-muted-foreground">
                 I&apos;d love, as Shahrukh, to walk you through these projects in
-                detail over a cup — or a quick video meet. Drop your details and
-                we&apos;ll schedule something. Prefer to decide after looking?
-                That works too.
+                detail over a cup — or a quick video meet. Book a call, or drop
+                your details. Prefer to decide after looking? That works too.
               </DialogDescription>
             </DialogHeader>
 
@@ -176,6 +235,28 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
                 </button>
               ))}
             </div>
+
+            <Button
+              type="button"
+              size="lg"
+              className="w-full"
+              disabled={pending}
+              render={
+                <a
+                  href={profile.calendly}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              }
+              onClick={() => {
+                track("gate_calendly", { slug, title })
+                trackCta("gate", "calendly")
+                unlockAndClose()
+              }}
+            >
+              <Calendar className="size-4" />
+              Book 20 min
+            </Button>
 
             <form onSubmit={onSubmit} className="space-y-4">
               <div className="space-y-2">
@@ -217,16 +298,24 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
                 />
               </div>
 
-              <Button type="submit" size="lg" className="w-full" disabled={pending}>
-                <Calendar className="size-4" />
-                Send &amp; unlock the work
+              <Button
+                type="submit"
+                variant="outline"
+                size="lg"
+                className="w-full"
+                disabled={pending}
+              >
+                Send details &amp; unlock the work
               </Button>
+              {error ? (
+                <p className="text-center text-xs text-destructive">{error}</p>
+              ) : null}
             </form>
 
             <div className="border-t border-foreground/12 pt-4">
               <Button
                 type="button"
-                variant="outline"
+                variant="ghost"
                 size="lg"
                 className="w-full"
                 disabled={pending}
@@ -241,24 +330,9 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
 
             {submitted ? (
               <p className="text-center text-xs text-foreground">
-                Thanks — your mail client should open. See you over{" "}
-                {preference}.
+                Thanks — I&apos;ll follow up. The work is unlocked.
               </p>
             ) : null}
-
-            <p className="text-center text-xs text-muted-foreground">
-              Or book directly on{" "}
-              <a
-                href={profile.calendly}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-foreground"
-                onClick={() => unlockAndClose()}
-              >
-                Calendly
-              </a>
-              .
-            </p>
           </div>
         </DialogContent>
       </Dialog>

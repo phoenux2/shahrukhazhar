@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { JetBrains_Mono, Noto_Nastaliq_Urdu } from "next/font/google"
+import { AnalyticsProviders } from "@/components/analytics/providers"
 import JsonLd from "@/components/JsonLd"
 import {
   personJsonLd,
@@ -44,6 +45,12 @@ export const metadata: Metadata = {
     url: SITE_URL,
     images: [{ url: ogImage, width: 1200, height: 630 }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `${PERSON.name} — Product Design Lead`,
+    description: PERSON.description,
+    images: [ogImage],
+  },
   alternates: {
     canonical: "/",
   },
@@ -60,10 +67,12 @@ export default function RootLayout({
       className={`${jetbrains.variable} ${urdu.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-mono">
-        <JsonLd id="person-jsonld" data={personJsonLd()} />
-        <JsonLd id="website-jsonld" data={websiteJsonLd()} />
-        <JsonLd id="profilepage-jsonld" data={profilePageJsonLd()} />
-        {children}
+        <AnalyticsProviders>
+          <JsonLd id="person-jsonld" data={personJsonLd()} />
+          <JsonLd id="website-jsonld" data={websiteJsonLd()} />
+          <JsonLd id="profilepage-jsonld" data={profilePageJsonLd()} />
+          {children}
+        </AnalyticsProviders>
       </body>
     </html>
   )
