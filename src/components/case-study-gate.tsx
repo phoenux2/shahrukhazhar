@@ -42,6 +42,7 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
   const [preference, setPreference] = useState<MeetPreference>("coffee")
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [website, setWebsite] = useState("")
   const [pending, startTransition] = useTransition()
   const gateViewed = useRef(false)
   const caseViewed = useRef(false)
@@ -126,6 +127,7 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
           source: "case_study_gate",
           slug,
           title,
+          website,
           attribution,
         }),
       })
@@ -258,7 +260,7 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
               Book 20 min
             </Button>
 
-            <form onSubmit={onSubmit} className="space-y-4">
+            <form onSubmit={onSubmit} className="relative space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="gate-name">Your name</Label>
                 <Input
@@ -266,6 +268,7 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
                   name="name"
                   autoComplete="name"
                   required
+                  maxLength={120}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="h-11 rounded-none"
@@ -280,6 +283,7 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
                   type="email"
                   autoComplete="email"
                   required
+                  maxLength={254}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="h-11 rounded-none"
@@ -295,6 +299,21 @@ export function CaseStudyGate({ slug, title, children }: CaseStudyGateProps) {
                   onChange={(e) => setNote(e.target.value)}
                   className="min-h-20 rounded-none"
                   placeholder="Timing, timezone, what you're curious about…"
+                  maxLength={2000}
+                />
+              </div>
+              <div
+                className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+                aria-hidden="true"
+              >
+                <Label htmlFor="gate-website">Website</Label>
+                <Input
+                  id="gate-website"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
                 />
               </div>
 
