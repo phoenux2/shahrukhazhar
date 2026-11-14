@@ -97,8 +97,12 @@ export function AnalyticsProviders({ children }: { children: ReactNode }) {
         <BookedHandler />
         <PostHogPageViews />
       </Suspense>
-      <Analytics />
-      <SpeedInsights />
+      {consent.analytics ? (
+        <>
+          <Analytics />
+          <SpeedInsights />
+        </>
+      ) : null}
       {consent.analytics && GA_ID ? (
         <>
           <Script
