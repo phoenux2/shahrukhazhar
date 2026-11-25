@@ -27,7 +27,7 @@ const ogImage = `/og?title=${encodeURIComponent(PERSON.name)}&subtitle=${encodeU
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${PERSON.name} — Product Design Lead`,
+    default: `${PERSON.name} — ${PERSON.jobTitle}`,
     template: `%s · ${PERSON.name}`,
   },
   description: PERSON.description,
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   openGraph: {
-    title: `${PERSON.name} — Product Design Lead`,
+    title: `${PERSON.name} — ${PERSON.jobTitle}`,
     description: PERSON.description,
     type: "website",
     url: SITE_URL,
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${PERSON.name} — Product Design Lead`,
+    title: `${PERSON.name} — ${PERSON.jobTitle}`,
     description: PERSON.description,
     images: [ogImage],
   },

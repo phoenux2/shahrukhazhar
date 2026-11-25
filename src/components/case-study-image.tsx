@@ -16,7 +16,7 @@ type CaseStudyImageProps = {
   caption?: string
   priority?: boolean
   /** Tighter thumbs for dense document layouts */
-  size?: "default" | "compact"
+  size?: "default" | "compact" | "hero"
   className?: string
 }
 
@@ -31,7 +31,9 @@ export function CaseStudyImage({
   const thumbMax =
     size === "compact"
       ? "max-h-[180px] sm:max-h-[220px] md:max-h-[260px]"
-      : "max-h-[200px] sm:max-h-[240px] md:max-h-[300px]"
+      : size === "hero"
+        ? "max-h-[70vh] md:max-h-[640px]"
+        : "max-h-[200px] sm:max-h-[240px] md:max-h-[300px]"
 
   return (
     <figure className={cn("w-full", className)}>

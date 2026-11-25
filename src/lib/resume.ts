@@ -2,8 +2,8 @@ export const profile = {
   name: "Shahrukh Azhar",
   nameUrdu: "شاہ رخ اظہر",
   monogram: "SA",
-  title:
-    "Product Designer & Design Leader",
+  title: "AI Product Designer",
+  headline: "I design products where a person still makes the call.",
   location: "Dubai, UAE · Lahore, Pakistan",
   email: "shahrukh@phoenux.design",
   phone: "+92 324 4135852",
@@ -14,9 +14,9 @@ export const profile = {
   studio: "https://phoenux.design",
   studioLabel: "phoenux.design",
   summary:
-    "Hey, I'm Shahrukh. I'm a product designer with 12+ years working on B2B SaaS, enterprise platforms, and AI products. I founded Phoenux.Design in 2019 — a design studio that embeds with product teams. Before that, I was Lead Product Designer at Unlayer (YC W22) and Senior Product Designer at Sendoso during their $100M raise.",
+    "Hey, I'm Shahrukh. Right now I lead product at Marketat and Whizpay, and I built AdVu. Phoenux is the studio I started in 2019. Most of this work happened there, with the team, not alone in a tab. Before that I led design at Unlayer, the YC email builder, and I was at Sendoso through their $100M raise. I live between Dubai and Lahore. If you want me on a product team, email me.",
   highlight:
-    "I operate from a simple priority: people, design, money — in that order.",
+    "People, then design, then money. I still run things in that order.",
 }
 
 export const outsideWork = {
@@ -27,16 +27,16 @@ export const outsideWork = {
     "I play table tennis. A lot. I'm pretty good at it.",
     "I'm really into cars.",
     "I geek out about renewable energy.",
-    "We run Phoenux a bit like Dunder Mifflin. I'm probably the Michael Scott.",
+    "Phoenux stays small on purpose. The people doing the work are usually in the room.",
     "I'm type 1 diabetic. It's pushed my limits more than almost anything else. Without it, I might have been just a normal kid doing normal things.",
   ],
 }
 
 export const focusAreas = [
-  "Product & UX Strategy",
-  "Design Leadership",
-  "Design Systems & Ops",
-  "B2B & Enterprise Products",
+  "Products where a person still approves the last step",
+  "AI inside the workflow, not bolted on the side",
+  "Payments, carefully",
+  "Design teams that sit with the product",
 ]
 
 export type ClientCredit = {
@@ -153,26 +153,49 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
+    company: "marketat.ai",
+    role: "Product lead",
+    period: "Current",
+    current: true,
+    summary:
+      "Marketat writes the first draft of a company's marketing and then waits. A writer, a designer, or I read it. The client hits approve. Only then does it go out. If nobody approves it, it just sits there. That's the product.",
+    bullets: [
+      "Five jobs you can actually buy: being findable in AI answers, writing, video, design, and one automation.",
+      "The Phoenux team checks the work with me. I lead it. I don't pretend I typed every word.",
+    ],
+  },
+  {
+    company: "Whizpay",
+    role: "Product lead",
+    period: "Current",
+    current: true,
+    summary:
+      "Whizpay is for a business that gets paid from the US and pays people at home. Dollars come in through ACH, Fedwire, or SWIFT. You can hold them. You can pay salaries locally. Cards still say coming soon on the site, because they aren't out. I lead the product. I don't run the bank behind it.",
+    bullets: [
+      "First customers we aimed at were agencies, shops, and software companies. Not someone opening a personal account on their phone.",
+      "I haven't put account screens on this site. It's people's money.",
+    ],
+  },
+  {
+    company: "AdVu",
+    role: "Builder",
+    period: "Current",
+    current: true,
+    summary:
+      "AdVu started from a Monday morning I got tired of. Six ad accounts, six different winners, and a report due before lunch. You connect the accounts and ask what happened. It answers from those numbers. The quotes on advu.ai are from customers of the product. They're not about me, so I left them there.",
+  },
+  {
     company: "Phoenux.Design",
     role: "Founder & Principal Product Designer",
     period: "Sep 2019 – Present",
     location: "United Arab Emirates",
     current: true,
     summary:
-      "Founded Phoenux in 2019. We embed design teams with product companies — helping founders and PMs ship better products faster. Clients include Foodics, STC, Dealpath, Listen Labs, and several enterprise/ServiceNow projects across North America and the Gulf.",
+      "I started Phoenux so designers could sit inside a product team instead of tossing files over a wall. LinkedIn and this resume say September 2019. The studio site says 2016. I use 2019, because that's the date I've put on my own CV.",
     bullets: [
-      "Hired and placed designers inside client orgs where they work as part of the product team.",
-      "Recent work: enterprise platforms, F&B tech, generative AI products, and compliance software.",
-      "Run the studio on a simple principle: people, design, money — in that order.",
+      "Marketat, Whizpay, AdVu, and an aircraft workflow for a client I can't name all came through the studio.",
+      "We still place designers inside other companies. Foodics, STC, Dealpath, and Listen Labs are from that chapter.",
     ],
-  },
-  {
-    company: "Ferd.AI",
-    role: "Founder",
-    period: "Oct 2024 – Present",
-    current: true,
-    summary:
-      "Started building an AI agent for design ops and front-end development. The first version got overtaken by how fast AI moved. Taking a pause to rethink it — will pick it back up when the timing is right.",
   },
   {
     company: "Unlayer",
@@ -189,7 +212,14 @@ export const experience: ExperienceItem[] = [
     period: "Oct 2019 – Jul 2022",
     location: "Phoenix, AZ",
     summary:
-      "Joined during Sendoso's $100M raise. Designed across the gifting platform — fulfillment, integrations, Salesforce apps, and recipient experiences. Co-created the Cameo integration (imagine waking up to a Snoop Dogg birthday video with your gift). The feature drove major product marketing momentum, even when commercial outcomes were mixed.",
+      "Joined during Sendoso's $100M raise. Designed across the gifting platform — fulfillment, integrations, Salesforce apps, and recipient experiences. Co-created the Cameo integration. The feature drove product marketing attention. Commercial outcomes were mixed.",
+  },
+  {
+    company: "Ferd.AI",
+    role: "Founder",
+    period: "Oct 2024 – Paused",
+    summary:
+      "I tried to build an agent that would do design ops for me. The tools lapped it. I parked it. If you want to see the agents that actually run, look at Marketat, Whizpay, and AdVu.",
   },
   {
     company: "Tintash",

@@ -12,6 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
+    {
+      url: absoluteUrl("/resume"),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
   ]
 
   const workRoutes: MetadataRoute.Sitemap = getCaseStudySlugs().map((slug) => ({

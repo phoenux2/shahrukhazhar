@@ -29,9 +29,194 @@ export type CaseStudy = {
   presentation?: "default" | "document"
   /** Coming-soon studies stay visible in the grid but are not linkable or routable */
   status?: "published" | "coming-soon"
+  /** Webpage screenshots should crop from the hero, not the middle */
+  coverPosition?: "top" | "center"
+  coverAlt?: string
 }
 
 export const caseStudies: CaseStudy[] = [
+  {
+    slug: "marketat",
+    title: "Nothing goes out until someone says so",
+    subtitle: "Marketat writes the draft. A person reads it. The client approves it. Then, and only then, it ships.",
+    company: "marketat.ai",
+    role: "Product lead, with the Phoenux team",
+    year: "Current",
+    tags: ["Writing", "Approvals", "AI answers"],
+    cover: "/case-studies/marketat/cover.webp",
+    coverPosition: "top",
+    coverAlt: "The live Marketat homepage: AI drafts, a person checks, nothing ships until you approve.",
+    summary:
+      "I got tired of tools that publish the moment the model finishes a sentence. Marketat is the opposite. The draft can be a blog post, a video, an ad, or a page written so an AI answer can quote it. It waits on a desk until a person has read it and the client has tapped approve.",
+    challenge:
+      "A buyer now asks ChatGPT, or Perplexity, who to hire before they ever open your site. Most businesses have nothing those answers can quote, and nobody whose job it is to stop a bad draft.",
+    outcome: [
+      "It's live at marketat.ai, and the prices are on the page",
+      "A piece sits in 'waiting for your OK' until the client approves it",
+      "We score whether AI answers mention you. We don't promise they will",
+    ],
+    figmaNodeId: "",
+    sections: [
+      {
+        title: "How a month actually goes",
+        body: [
+          "We look at the site, the channels, and what the AI tools are already saying. Then we pick two or three jobs worth doing, not five for the sake of a package.",
+          "AI does the first pass. Research, a rough draft, a resize. A writer or a designer on the Phoenux team fixes it. I read the ones that are about to represent the company. The client gets an approve button and a 'change it' button. If they don't tap either, nothing happens. I like that. Silence should not mean publish.",
+        ],
+      },
+      {
+        title: "The five jobs",
+        body: [
+          "People don't buy 'an agent.' They buy a job. The page lists them in plain numbers, so I'll repeat them here instead of inventing a prettier story.",
+        ],
+        bullets: [
+          "Show up in AI answers. $900 a month, and a $2,500 sprint if the site needs new pages first.",
+          "Writing. $1,200 a month. A few posts, a newsletter, social.",
+          "Video. $1,500 a month.",
+          "Design. $1,500 a month. Ads and pages, up to twenty pieces.",
+          "One automation. $300 a month after a $1,500 setup. Usually the thing that replies when a lead comes in.",
+        ],
+      },
+      {
+        title: "The part about ChatGPT",
+        body: [
+          "We take the questions a buyer would actually ask and run them through ChatGPT, Claude, Gemini, and Perplexity. Then we mark each answer. Were you named? Were you high on the list? Were the facts right? Did every tool tell the same story?",
+          "The sample on the Marketat site is a made-up bookkeeper in Toronto. I left it labeled that way. I've watched too many pages pretend a model mention is a guarantee. It isn't. You can write the page the model is able to quote. You can't twist its arm.",
+        ],
+      },
+      {
+        title: "Who did the work",
+        body: [
+          "I lead the product. The Phoenux site is honest about the rest. Designers, writers, and developers check every piece. If a case study of mine ever sounds like I was alone in the room, don't believe that one.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "whizpay",
+    title: "Get paid in dollars. Pay people at home.",
+    subtitle: "I lead product at Whizpay. Money in from the US. Salaries out locally. Cards are still not a thing.",
+    company: "Whizpay",
+    role: "Product lead",
+    year: "Current",
+    tags: ["Payments", "Product", "USD"],
+    cover: "/case-studies/whizpay/cover.webp",
+    coverPosition: "top",
+    coverAlt: "The live Whizpay homepage: get paid by ACH, Fedwire, and SWIFT, and pay a team in PKR.",
+    summary:
+      "The pitch I keep is short. A studio in Lahore invoices a client in California. The dollars should land somewhere that doesn't panic, and Friday's salaries should still go out in rupees. Whizpay is that somewhere. I lead the product. Someone else holds the license.",
+    challenge:
+      "International banking, for a twenty-person agency, feels like a form from another decade. You wait, the rate moves, and the tool you get at the end looks like it was designed for a compliance officer, not for the person who has to pay the team.",
+    outcome: [
+      "Live at whizpay.io",
+      "ACH, Fedwire, and SWIFT are the ways dollars come in",
+      "You can hold USD and pay locally",
+      "Cards are still marked coming soon, because they are",
+    ],
+    figmaNodeId: "",
+    sections: [
+      {
+        title: "The job, once I cut the rest",
+        body: [
+          "Receive the money. Hold it in dollars so you aren't forced to convert on the day it arrives. Pay people at home when payroll is due.",
+          "The FAQ on the site says we start with USD. That's the whole currency story for now. I didn't want a flag page of twenty countries we couldn't actually serve.",
+        ],
+      },
+      {
+        title: "Who it's for, at first",
+        body: [
+          "Agencies, ecommerce shops, software companies. The person invoicing from Upwork, and the person running payroll for them. I kept pulling the product back from 'a bank in your pocket.' The first user has a company, a client overseas, and a team to pay. A student opening an account was a different product, and we weren't building it.",
+        ],
+      },
+      {
+        title: "What I left unfinished on purpose",
+        body: [
+          "Virtual cards are on the site with the words 'coming soon' next to them. I was tempted to hide that. A screenshot of a card that doesn't exist would have looked better for about a day, until someone tried to order one.",
+          "I'm also not putting KYC screens or balances here. It's other people's money, and a hiring manager doesn't need to see an account number to know I worked on the product.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "advu",
+    title: "Ask the account what happened",
+    subtitle: "AdVu is the thing I built so Monday reporting would stop eating the morning.",
+    company: "AdVu",
+    role: "I built it",
+    year: "Current",
+    tags: ["Ads", "Reporting", "Questions"],
+    cover: "/case-studies/advu/cover.webp",
+    coverPosition: "top",
+    coverAlt: "The live AdVu homepage, with a dashboard of revenue, blended CAC, and ad spend.",
+    summary:
+      "You know the morning. Meta says it won. Google says it won. TikTok has a number that doesn't match either. The report is due in an hour and someone still has to reconcile it by hand. AdVu is me refusing to do that again. Connect the accounts. Ask the question the way you'd ask a person. It answers from the data you just connected.",
+    challenge:
+      "The dashboards weren't the problem. Having six of them was. By the time a human noticed a campaign quietly spending on the wrong audience, the month's budget was already gone.",
+    outcome: [
+      "Live at advu.ai",
+      "You ask in a sentence. It answers from the connected accounts.",
+      "It can ping you when return on ad spend drops, or when spend spikes",
+    ],
+    figmaNodeId: "",
+    sections: [
+      {
+        title: "A question, not a filter tree",
+        body: [
+          "The first version of every analytics tool I've used ends the same way. You learn where they hid the dropdown. I wanted the opposite. Type 'why did yesterday fall over' and get a sentence back that names the campaign, not a chat window that asks you to upload a CSV you already have.",
+          "If it can't see the account, it shouldn't guess. That rule killed a few clever demo moments. Good.",
+        ],
+      },
+      {
+        title: "Tell me while the money is still there",
+        body: [
+          "The alert I care about is the boring one. Return on ad spend dipped. Spend jumped. A campaign stopped converting. You find out on the day, not in next week's deck. The product can watch those. I didn't try to make it watch everything. Everything is how alerts become noise.",
+        ],
+      },
+      {
+        title: "What's on the pricing page",
+        body: [
+          "Starter is $99 a month, Growth is $199, Scale is $499. The page shows USD and bills in QAR. I'm writing that down because it's public, not because a price is a personality.",
+          "There are customer quotes on advu.ai, including names I won't repeat here. Those people were talking about the product. Putting their words under my portrait would be me borrowing a compliment.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "aircraft-acquisition",
+    title: "The agent does the homework",
+    subtitle: "A workflow for a team that buys and sells aircraft. I can tell you the shape of it. I can't tell you their name.",
+    company: "A client I can't name",
+    role: "I designed the workflow",
+    year: "2026",
+    tags: ["Workflow", "Approvals", "Aircraft"],
+    cover: "/case-studies/aircraft/cover.png",
+    coverAlt: "A four-step diagram: the agent gathers the listing, checks the record, frames the value, and a person says yes.",
+    summary:
+      "Someone brought me into a team that buys and sells aircraft. The work was a pile of checks. What's for sale, does the record hold up, what is it worth, and who is allowed to say yes. A chatbot can summarize a listing. It should not be the one who says yes.",
+    challenge:
+      "The tempting demo is a box you type a tail number into, and a confident paragraph comes out. The team didn't need a confident paragraph. They needed the homework done, and the decision left with the person who can spend the money.",
+    outcome: [
+      "The agent gathers and flags",
+      "A person still commits the money",
+      "Their name, their documents, and their screens stay off this site",
+    ],
+    figmaNodeId: "",
+    sections: [
+      {
+        title: "What the workflow actually is",
+        body: [
+          "Same jobs they already had. Pull the listing. Check the record. Frame what it's worth. Put that in front of the person who can sign.",
+          "The agent is good at the first three when you watch it. It is not allowed to do the fourth. I drew that line early, before anyone asked for a button that said 'buy.' Once that button exists, someone will press it on a Friday.",
+        ],
+      },
+      {
+        title: "Why this page is short",
+        body: [
+          "I have the workshop notes. I'm not publishing them. No company name, no one else's name, no screenshots of their system. If you hire me and you need the detail, we'll do that under your paper, not on a URL my mother can open.",
+        ],
+      },
+    ],
+  },
   {
     slug: "unlayer",
     title: "Scaling a YC Product to Global Enterprise Standards",

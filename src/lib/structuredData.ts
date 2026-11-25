@@ -14,6 +14,16 @@ export function personJsonLd() {
     description: PERSON.description,
     sameAs: PERSON.sameAs,
     knowsAbout: PERSON.knowsAbout,
+    worksFor: {
+      "@type": "Organization",
+      name: PERSON.worksFor.name,
+      url: PERSON.worksFor.url,
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Dubai",
+      addressCountry: "AE",
+    },
   }
 }
 
@@ -86,8 +96,10 @@ export function caseStudyJsonLd(input: {
       "@type": "Organization",
       name: input.company,
     },
+    creator: { "@id": `${SITE_URL}/#person` },
     author: { "@id": `${SITE_URL}/#person` },
     publisher: { "@id": `${SITE_URL}/#person` },
+    dateModified: "2026-11-25",
     mainEntityOfPage: `${SITE_URL}${input.path}`,
   }
 }
