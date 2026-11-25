@@ -271,7 +271,7 @@ export function CaseStudyView({ study }: { study: CaseStudy }) {
           <p className="micro-label mt-8">
             {study.company} · {study.year}
           </p>
-          <h1 className="mt-3 max-w-3xl text-4xl leading-[1.05] font-bold tracking-tight text-foreground text-balance md:text-5xl">
+          <h1 className="mt-3 max-w-3xl text-4xl leading-[1.05] font-medium tracking-[-0.02em] text-foreground text-balance md:text-5xl">
             {study.title}
           </h1>
           <p className="mt-4 max-w-2xl text-lg font-medium tracking-tight text-foreground/80 text-balance">
