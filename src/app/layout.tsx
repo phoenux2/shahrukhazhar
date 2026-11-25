@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { JetBrains_Mono, Noto_Nastaliq_Urdu } from "next/font/google"
+import { DM_Sans, Noto_Nastaliq_Urdu, Schibsted_Grotesk } from "next/font/google"
 import { AnalyticsProviders } from "@/components/analytics/providers"
 import JsonLd from "@/components/JsonLd"
 import {
@@ -10,8 +10,14 @@ import {
 import { PERSON, SITE_URL } from "@/lib/site"
 import "./globals.css"
 
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
+const sans = DM_Sans({
+  variable: "--font-dm-sans",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+})
+
+const display = Schibsted_Grotesk({
+  variable: "--font-schibsted",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 })
@@ -27,7 +33,7 @@ const ogImage = `/og?title=${encodeURIComponent(PERSON.name)}&subtitle=${encodeU
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${PERSON.name} — Product Design Lead`,
+    default: `${PERSON.name} — ${PERSON.jobTitle}`,
     template: `%s · ${PERSON.name}`,
   },
   description: PERSON.description,
@@ -39,7 +45,7 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   openGraph: {
-    title: `${PERSON.name} — Product Design Lead`,
+    title: `${PERSON.name} — ${PERSON.jobTitle}`,
     description: PERSON.description,
     type: "website",
     url: SITE_URL,
@@ -47,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${PERSON.name} — Product Design Lead`,
+    title: `${PERSON.name} — ${PERSON.jobTitle}`,
     description: PERSON.description,
     images: [ogImage],
   },
@@ -64,9 +70,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${jetbrains.variable} ${urdu.variable} h-full antialiased`}
+      className={`${sans.variable} ${display.variable} ${urdu.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col font-mono">
+      <body className="flex min-h-full flex-col font-sans">
         <AnalyticsProviders>
           <JsonLd id="person-jsonld" data={personJsonLd()} />
           <JsonLd id="website-jsonld" data={websiteJsonLd()} />

@@ -123,7 +123,11 @@ export function SiteChrome({
 }
 
 export function WorkGrid({ limit }: { limit?: number }) {
-  const studies = limit ? caseStudies.slice(0, limit) : caseStudies
+  const ordered = [...caseStudies].sort(
+    (a, b) =>
+      Number(a.status === "coming-soon") - Number(b.status === "coming-soon"),
+  )
+  const studies = limit ? ordered.slice(0, limit) : ordered
 
   return (
     <ul className="grid gap-0 border-t border-foreground/12">
@@ -131,17 +135,17 @@ export function WorkGrid({ limit }: { limit?: number }) {
         const comingSoon = study.status === "coming-soon"
         const body = (
           <>
-            <div className="relative aspect-[4/3] overflow-hidden border border-foreground/18 bg-muted">
+            <div className="relative aspect-[16/10] overflow-hidden border border-foreground/18 bg-muted md:aspect-[4/3]">
               <Image
                 src={study.cover}
-                alt=""
+                alt={study.coverAlt ?? ""}
                 fill
                 className={
                   comingSoon
-                    ? "object-cover opacity-50 grayscale"
-                    : "object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                    ? "object-cover object-top opacity-50 grayscale"
+                    : `object-cover ${study.coverPosition === "top" ? "object-top" : "object-center"} transition-transform duration-300 group-hover:scale-[1.02]`
                 }
-                sizes="220px"
+                sizes="(min-width: 768px) 340px, 100vw"
               />
               {comingSoon ? (
                 <div className="absolute inset-0 flex items-center justify-center bg-canvas/40 backdrop-blur-[2px]">
@@ -192,14 +196,14 @@ export function WorkGrid({ limit }: { limit?: number }) {
             {comingSoon ? (
               <div
                 aria-disabled="true"
-                className="grid cursor-not-allowed gap-6 py-8 opacity-80 md:grid-cols-[220px_1fr_auto] md:items-center md:gap-10 md:py-10"
+                className="grid cursor-not-allowed gap-6 py-8 opacity-80 md:grid-cols-[340px_1fr_auto] md:items-center md:gap-10 md:py-10"
               >
                 {body}
               </div>
             ) : (
               <Link
                 href={`/work/${study.slug}`}
-                className="group grid gap-6 py-8 transition-colors hover:bg-foreground/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:grid-cols-[220px_1fr_auto] md:items-center md:gap-10 md:py-10"
+                className="group grid gap-6 py-8 transition-colors hover:bg-foreground/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:grid-cols-[340px_1fr_auto] md:items-center md:gap-10 md:py-10"
               >
                 {body}
               </Link>
@@ -208,6 +212,44 @@ export function WorkGrid({ limit }: { limit?: number }) {
         )
       })}
     </ul>
+  )
+}
+
+const RELATED_SLUGS = [
+  "marketat",
+  "whizpay",
+  "advu",
+  "aircraft-acquisition",
+] as const
+
+function RelatedWork({ current }: { current: string }) {
+  if (!RELATED_SLUGS.includes(current as (typeof RELATED_SLUGS)[number])) {
+    return null
+  }
+  const others = caseStudies.filter(
+    (study) =>
+      RELATED_SLUGS.includes(study.slug as (typeof RELATED_SLUGS)[number]) &&
+      study.slug !== current,
+  )
+  return (
+    <div className="mb-12">
+      <p className="micro-label">Also from this stretch</p>
+      <ul className="mt-4 grid gap-3 sm:grid-cols-3">
+        {others.map((study) => (
+          <li key={study.slug}>
+            <Link
+              href={`/work/${study.slug}`}
+              className="block border border-foreground/18 px-4 py-3 transition-colors hover:bg-foreground/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <span className="micro-label">{study.company}</span>
+              <span className="mt-1 block text-sm font-semibold tracking-tight">
+                {study.title}
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
@@ -229,7 +271,7 @@ export function CaseStudyView({ study }: { study: CaseStudy }) {
           <p className="micro-label mt-8">
             {study.company} · {study.year}
           </p>
-          <h1 className="mt-3 max-w-3xl text-4xl leading-[1.05] font-bold tracking-tight text-foreground text-balance md:text-5xl">
+          <h1 className="mt-3 max-w-3xl text-4xl leading-[1.05] font-medium tracking-[-0.02em] text-foreground text-balance md:text-5xl">
             {study.title}
           </h1>
           <p className="mt-4 max-w-2xl text-lg font-medium tracking-tight text-foreground/80 text-balance">
@@ -252,8 +294,9 @@ export function CaseStudyView({ study }: { study: CaseStudy }) {
           <div className="mx-auto max-w-5xl px-6 py-8 md:px-8">
             <CaseStudyImage
               src={study.cover}
-              alt={`${study.title} cover`}
+              alt={study.coverAlt ?? `${study.title} cover`}
               priority
+              size="hero"
             />
           </div>
         </div>
@@ -438,11 +481,13 @@ export function CaseStudyView({ study }: { study: CaseStudy }) {
       )}
 
       <div className="border-t border-foreground/18">
-        <div className="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-14 md:flex-row md:items-center md:justify-between md:px-8">
+        <div className="mx-auto max-w-5xl px-6 py-14 md:px-8">
+          <RelatedWork current={study.slug} />
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="micro-label">Next</p>
             <p className="mt-2 text-lg font-semibold tracking-tight">
-              Let&apos;s design the next chapter.
+              If you want me on the team, write.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -464,12 +509,13 @@ export function CaseStudyView({ study }: { study: CaseStudy }) {
               variant="outline"
               size="lg"
             >
-              Start a conversation
+              Email me
               <ArrowUpRight className="size-4" />
             </TrackedCta>
             <Button render={<Link href="/#work" />} variant="outline" size="lg">
               More work
             </Button>
+          </div>
           </div>
         </div>
       </div>

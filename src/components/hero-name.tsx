@@ -17,7 +17,7 @@ export function HeroName() {
 
   return (
     <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1">
-      <h1 className="text-[2.125rem] leading-[1.1] font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
+      <h1 className="text-[2.125rem] leading-[1.05] font-medium tracking-[-0.02em] text-foreground sm:text-5xl md:text-6xl">
         {profile.name}
       </h1>
       <Dialog open={open} onOpenChange={setOpen}>

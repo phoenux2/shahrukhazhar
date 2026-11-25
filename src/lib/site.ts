@@ -9,8 +9,12 @@ export const PERSON = {
   email: profile.email,
   jobTitle: profile.title,
   description:
-    "Product design leader with 12+ years in B2B SaaS. Former Lead Product Designer at Unlayer (YC W22), Senior Product Designer at Sendoso. Founder of Phoenux.Design.",
-  sameAs: [profile.linkedin, profile.studio, profile.calendly],
+    "AI product designer shipping agentic workflows at Marketat, Whizpay, and AdVu. Founder of Phoenux. Formerly led design at Unlayer (YC W22).",
+  sameAs: [profile.linkedin],
+  worksFor: {
+    name: "Phoenux.Design",
+    url: profile.studio,
+  },
   knowsAbout: focusAreas,
   location: profile.location,
 } as const

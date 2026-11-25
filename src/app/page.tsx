@@ -29,7 +29,7 @@ import {
 import { faqPageJsonLd } from "@/lib/structuredData"
 import { ArrowUpRight, Calendar, Download, Mail, MapPin, Phone } from "lucide-react"
 
-const FEATURED_EXPERIENCE_COUNT = 4
+const FEATURED_EXPERIENCE_COUNT = 5
 const VISIBLE_BULLETS = 2
 
 function MicroLabel({ children }: { children: React.ReactNode }) {
@@ -221,12 +221,12 @@ function Hero() {
     <section id="top" className="border-b border-foreground/18">
       <div className="mx-auto flex min-h-[calc(100svh-7rem)] max-w-5xl flex-col justify-center px-4 py-12 sm:min-h-[calc(100svh-3.5rem)] sm:px-6 sm:py-16 md:px-8 md:py-24">
         <div className="animate-rise max-w-3xl">
-          <MicroLabel>Product design · Systems · Strategy</MicroLabel>
+          <MicroLabel>Dubai · Lahore</MicroLabel>
           <HeroName />
         </div>
 
         <p className="animate-rise-delay-1 mt-5 max-w-2xl text-lg leading-snug font-medium tracking-tight text-foreground/90 text-balance sm:mt-6 sm:text-xl sm:text-foreground/85">
-          {profile.title}
+          {profile.headline}
         </p>
 
         <p className="animate-rise-delay-2 mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:mt-6 sm:text-base">
@@ -252,7 +252,7 @@ function Hero() {
             variant="outline"
             size="lg"
           >
-            Start a conversation
+            Email me
             <ArrowUpRight className="size-4" />
           </TrackedCta>
           <TrackedCta
@@ -270,8 +270,7 @@ function Hero() {
           <TrackedCta
             location="hero"
             destination="resume"
-            href="/Shahrukh-Azhar-Resume.pdf"
-            download
+            href="/resume"
             variant="ghost"
             size="lg"
           >
@@ -296,7 +295,7 @@ function WorkSection() {
         <SectionHeader
           label="Selected work"
           title="Case studies"
-          description="Compartmentalizing years of work into neat case studies is its own craft problem — the cobbler’s children have no shoes. Still: deep dives from Unlayer, Sendoso, and more."
+          description="The new work is first. Unlayer and Sendoso are older, and they're the ones with the long writeups, because I had the years and the screens."
         />
         <WorkGrid />
       </div>
@@ -394,9 +393,8 @@ function PracticeSection() {
             <AccordionTrigger>Collaborations</AccordionTrigger>
             <AccordionContent>
               <p className="pt-1 text-base leading-relaxed text-muted-foreground sm:text-sm">
-                A few names from the ledger — one line each. The cobbler’s
-                children problem applies here too: years of client work, very
-                little room to over-explain.
+                Older client work. One line each, because the story is in the
+                projects above, not in a logo wall.
               </p>
               <div className="mt-6 grid gap-8 md:grid-cols-2">
                 {(
@@ -445,7 +443,7 @@ function TestimonialsSection() {
         <SectionHeader
           label="Testimonials"
           title="What people say"
-          description="LinkedIn recommendations from Sendoso colleagues, plus client and Clutch endorsements."
+          description="People I actually worked with. The Sendoso notes are from 2022. The client ones are studio jobs. I don't have a quote yet from Marketat, Whizpay, or AdVu, so I didn't invent one."
         />
         <ul className="space-y-0 border-t border-foreground/12">
           {testimonials.map((testimonial) => (
@@ -541,6 +539,31 @@ function EducationSection() {
   )
 }
 
+function FaqSection() {
+  return (
+    <section id="questions" className="scroll-mt-28 border-b border-foreground/18 sm:scroll-mt-16">
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-24">
+        <SectionHeader
+          label="Questions"
+          title="Things people ask before they write"
+        />
+        <Accordion className="border-t border-foreground/12">
+          {homeFaqs.map((faq) => (
+            <AccordionItem key={faq.question} value={faq.question}>
+              <AccordionTrigger>{faq.question}</AccordionTrigger>
+              <AccordionContent>
+                <p className="max-w-2xl pt-1 text-base leading-relaxed text-muted-foreground sm:text-sm">
+                  {faq.answer}
+                </p>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+    </section>
+  )
+}
+
 function ContactSection() {
   return (
     <section id="contact" className="scroll-mt-28 sm:scroll-mt-16">
@@ -548,12 +571,13 @@ function ContactSection() {
         <div className="section-header max-w-xl">
           <MicroLabel>Contact</MicroLabel>
           <h2 className="section-header__title mt-2 text-balance md:text-[2.5rem]">
-            Let&apos;s design the next chapter.
+            If you want me on the team, write.
           </h2>
         </div>
         <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-sm">
-          Open to fractional head of design roles, product design leadership,
-          and select consultancy engagements through Phoenux.
+          I&apos;m looking for a product role, remote from Dubai or Lahore.
+          {` ${profile.email}`} is the right address. If you want Phoenux for a
+          project, say so. Otherwise I&apos;ll assume you mean me.
         </p>
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -660,6 +684,7 @@ export default function Home() {
         <TestimonialsSection />
         <OutsideWorkSection />
         <EducationSection />
+        <FaqSection />
         <ContactSection />
       </main>
       <SiteFooter />

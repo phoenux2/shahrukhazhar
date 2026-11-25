@@ -30,7 +30,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!study || !isCaseStudyPublished(study)) return { title: "Case study" }
 
   const title = `${study.company} — ${study.title}`
-  const ogImage = `/og?title=${encodeURIComponent(study.title)}&subtitle=${encodeURIComponent(study.subtitle)}`
+  const textCard = `/og?title=${encodeURIComponent(study.title)}&subtitle=${encodeURIComponent(study.subtitle)}`
+  const leadWithCover = [
+    "marketat",
+    "whizpay",
+    "advu",
+    "aircraft-acquisition",
+  ].includes(study.slug)
+  const images = leadWithCover
+    ? [
+        { url: study.cover, width: 1200, height: 630, alt: study.coverAlt },
+        { url: textCard, width: 1200, height: 630 },
+      ]
+    : [
+        { url: textCard, width: 1200, height: 630 },
+        { url: study.cover, width: 1200, height: 630 },
+      ]
 
   return {
     title,
@@ -42,7 +57,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${title} · ${PERSON.name}`,
       description: study.subtitle,
       url: `${SITE_URL}/work/${study.slug}`,
-      images: [{ url: ogImage, width: 1200, height: 630 }, { url: study.cover }],
+      images,
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      images: [images[0].url],
     },
   }
 }
